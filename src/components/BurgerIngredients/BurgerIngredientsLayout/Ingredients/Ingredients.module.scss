@@ -4,8 +4,7 @@
   }
 
   &__content {
-    height: 400px;
-    width: 605px;
+    max-height: 700px;
     overflow-y: auto;
   }
 }

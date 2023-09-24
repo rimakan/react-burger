@@ -1,0 +1,13 @@
+.burgerConstructorFooter {
+  display: flex;
+  gap: 40px;
+  justify-content: end;
+  margin-right: 35px;
+  margin-top: 40px;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
