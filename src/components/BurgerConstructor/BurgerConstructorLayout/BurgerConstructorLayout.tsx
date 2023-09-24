@@ -13,7 +13,6 @@ const BurgerConstructorLayout: React.FC = () => {
   const filteredProducts = productsList.filter(
     ({ type }) => type !== ProductType.Bun
   );
-  console.log(filteredProducts);
 
   return (
     <section className={`${s.burgerConstructorLayout}`}>
@@ -30,10 +29,9 @@ const BurgerConstructorLayout: React.FC = () => {
       >
         {filteredProducts.map(({ _id, name, image_mobile, price }) => {
           return (
-            <div className={s.mainProductsList__listItem}>
+            <div className={s.mainProductsList__listItem} key={_id}>
               <DragIcon type="primary" />
               <ConstructorElement
-                key={_id}
                 text={name}
                 thumbnail={image_mobile}
                 price={price}
