@@ -5,10 +5,12 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 
 const StellarBurgerMainPage = () => {
   return (
-    <div className={s.stelarBurgerMainPage}>
-      <BurgerIngredients />
-      <BurgerConstructor />
-    </div>
+    <main>
+      <div className={s.stelarBurgerMainPage}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </div>
+    </main>
   );
 };
 

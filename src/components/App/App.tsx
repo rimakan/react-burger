@@ -6,10 +6,8 @@ import StellarBurgerMainPage from "../pages/StellarBurgerMainPage";
 function App() {
   return (
     <div className={s.App}>
-      <main>
-        <AppHeader />
-        <StellarBurgerMainPage />
-      </main>
+      <AppHeader />
+      <StellarBurgerMainPage />
     </div>
   );
 }

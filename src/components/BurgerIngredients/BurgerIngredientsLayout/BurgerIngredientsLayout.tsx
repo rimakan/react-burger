@@ -1,5 +1,4 @@
 import React from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "./Ingredients/Ingredients";
 import s from "./BurgerIngredients.module.scss";
 
