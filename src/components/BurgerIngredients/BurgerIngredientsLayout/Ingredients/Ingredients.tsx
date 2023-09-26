@@ -1,31 +1,26 @@
-import React, { useState } from "react";
-import s from "./Ingredients.module.scss";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ProductType } from "../../../../models/product";
-import BurgerIngredientsList from "../BurgerIngredientsList/BurgerIngredientsList";
-import { productsList } from "../../../../data/products";
+import React, { useCallback, useContext, useState } from 'react';
+import s from './Ingredients.module.scss';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Product, ProductType } from '../../../../models/product';
+import BurgerIngredientsList from '../BurgerIngredientsList/BurgerIngredientsList';
+import { IngredientsContext } from '../../../pages/StellarBurgerMainPage';
 
 const ingredientTabDict: { [key: string]: string } = {
-  [ProductType.Bun]: "Булки",
-  [ProductType.Sauce]: "Соусы",
-  [ProductType.Main]: "Начинки",
+  [ProductType.Bun]: 'Булки',
+  [ProductType.Sauce]: 'Соусы',
+  [ProductType.Main]: 'Начинки',
 };
-
-function getIngredientsTypesFromEnum<T>(value: any): T[] {
-  return Object.values(value);
-}
 
 const Ingredients: React.FC = () => {
   const [active, setActive] = useState<string>(ProductType.Bun);
-  const ingredientsType = getIngredientsTypesFromEnum<ProductType>(ProductType);
 
-  const tabClickHandler = (value: string) => {
+  const tabClickHandler = useCallback((value: string) => {
     setActive(value);
     const element = document.getElementById(ingredientTabDict[value]);
     if (element) {
-      element?.scrollIntoView({ behavior: "smooth" });
+      element?.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
   return (
     <section className={s.ingredients}>
@@ -58,19 +53,16 @@ const Ingredients: React.FC = () => {
           id={ingredientTabDict[ProductType.Bun]}
           header={ingredientTabDict[ProductType.Bun]}
           type={ProductType.Bun}
-          productsList={productsList}
         />
         <BurgerIngredientsList
           id={ingredientTabDict[ProductType.Sauce]}
           header={ingredientTabDict[ProductType.Sauce]}
           type={ProductType.Sauce}
-          productsList={productsList}
         />
         <BurgerIngredientsList
           id={ingredientTabDict[ProductType.Main]}
           header={ingredientTabDict[ProductType.Main]}
           type={ProductType.Main}
-          productsList={productsList}
         />
       </div>
     </section>

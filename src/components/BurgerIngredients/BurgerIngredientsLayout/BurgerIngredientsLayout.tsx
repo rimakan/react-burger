@@ -1,6 +1,6 @@
-import React from "react";
-import Ingredients from "./Ingredients/Ingredients";
-import s from "./BurgerIngredients.module.scss";
+import React from 'react';
+import Ingredients from './Ingredients/Ingredients';
+import s from './BurgerIngredients.module.scss';
 
 const BurgerIngredientsLayout: React.FC = () => {
   return (

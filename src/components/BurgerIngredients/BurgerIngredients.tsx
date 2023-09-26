@@ -1,7 +1,7 @@
-import React from "react";
-import BurgerIngredientsLayout from "./BurgerIngredientsLayout/BurgerIngredientsLayout";
+import React from 'react';
+import BurgerIngredientsLayout from './BurgerIngredientsLayout/BurgerIngredientsLayout';
 
-const BurgerIngredients = () => {
+const BurgerIngredients: React.FC = () => {
   return <BurgerIngredientsLayout />;
 };
 
