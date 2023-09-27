@@ -11,7 +11,12 @@ const BurgerConstructorButton: React.FC = () => {
   };
   return (
     <>
-      <Button type="primary" size="large" htmlType="button" onClick={handleClick}>
+      <Button
+        type="primary"
+        size="large"
+        htmlType="button"
+        onClick={handleClick}
+      >
         Оформить заказ
       </Button>
       {isModalOpen && (

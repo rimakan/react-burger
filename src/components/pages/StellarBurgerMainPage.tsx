@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import s from './StellarBurgerMainPage.module.scss';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
@@ -7,7 +7,13 @@ import { Product } from '../../models/product';
 import BurgerIngredientsDetailsModal from './BurgerIngredientsDetailsModal/BurgerIngredientsDetailsModal';
 import { useModal } from '../../hooks/useModal';
 
-export const IngredientsContext = createContext<[Product[], string, any, any]>([[], '', null, null]);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const IngredientsContext = createContext<[Product[], string, any, any]>([
+  [],
+  '',
+  null,
+  null,
+]);
 
 const StellarBurgerMainPage: React.FC = () => {
   const [ingredients, setIngredients] = useState<Product[]>([]);
@@ -34,8 +40,10 @@ const StellarBurgerMainPage: React.FC = () => {
   }, []);
 
   return (
-    <main className={s.stelarBurgerMainPage}>
-      <IngredientsContext.Provider value={[ingredients, ingredientId, setIngredientId, toggleModal]}>
+    <main className={s.stellarBurgerMainPage}>
+      <IngredientsContext.Provider
+        value={[ingredients, ingredientId, setIngredientId, toggleModal]}
+      >
         <BurgerIngredients />
         <BurgerConstructor />
         {isModalOpen && <BurgerIngredientsDetailsModal />}

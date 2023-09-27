@@ -14,7 +14,7 @@ const ModalOverlay: React.FC<ModalProps> = ({ onClick }) => {
     return () => {
       window.removeEventListener('keydown', closeModal);
     };
-  }, []);
+  }, [onClick]);
 
   return <div className={s.modalOverlay} onClick={onClick} />;
 };

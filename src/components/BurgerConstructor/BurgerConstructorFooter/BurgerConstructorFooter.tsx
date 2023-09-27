@@ -7,7 +7,9 @@ interface BurgerConstructorFooterProps {
   orderSum: number;
 }
 
-const BurgerConstructorFooter: React.FC<BurgerConstructorFooterProps> = ({ orderSum }) => {
+const BurgerConstructorFooter: React.FC<BurgerConstructorFooterProps> = ({
+  orderSum,
+}) => {
   return (
     <div className={s.burgerConstructorFooter}>
       <div className="pl-7 pr-7">

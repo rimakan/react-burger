@@ -1,6 +1,9 @@
 import React, { useContext, useMemo } from 'react';
 import s from './BurgerConstructorLayout.module.scss';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  ConstructorElement,
+  DragIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorFooter from '../BurgerConstructorFooter/BurgerConstructorFooter';
 import { ProductType } from '../../../models/product';
 import { IngredientsContext } from '../../pages/StellarBurgerMainPage';
@@ -35,7 +38,11 @@ const BurgerConstructorLayout: React.FC = () => {
               return (
                 <div className={s.mainProductsList__listItem} key={_id}>
                   <DragIcon type="primary" />
-                  <ConstructorElement text={name} thumbnail={image_mobile} price={price} />
+                  <ConstructorElement
+                    text={name}
+                    thumbnail={image_mobile}
+                    price={price}
+                  />
                 </div>
               );
             })}

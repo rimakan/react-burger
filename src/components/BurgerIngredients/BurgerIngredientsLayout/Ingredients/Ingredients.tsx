@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import s from './Ingredients.module.scss';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Product, ProductType } from '../../../../models/product';
+import { ProductType } from '../../../../models/product';
 import BurgerIngredientsList from '../BurgerIngredientsList/BurgerIngredientsList';
-import { IngredientsContext } from '../../../pages/StellarBurgerMainPage';
 
 const ingredientTabDict: { [key: string]: string } = {
   [ProductType.Bun]: 'Булки',

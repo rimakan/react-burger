@@ -3,7 +3,7 @@ import s from './ModalWindow.module.scss';
 import { ModalProps } from '../types/types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ModalWindow: React.FC<ModalProps> = ({ onClick, children, heading, className }) => {
+const ModalWindow: React.FC<ModalProps> = ({ onClick, children, heading }) => {
   return (
     <div className={s.modal}>
       <div className={s.wrapper}>
