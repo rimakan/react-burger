@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import {
   Logo,
   BurgerIcon,
   ListIcon,
   ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import s from "./AppHeader.module.scss";
-import AppHeaderItem from "../Common/AppHeaderItem/AppHeaderItem";
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import s from './AppHeader.module.scss';
+import AppHeaderItem from '../Common/AppHeaderItem/AppHeaderItem';
 
 const AppHeader: React.FC = () => {
   return (

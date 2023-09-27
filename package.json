@@ -22,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx eslint .",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +45,10 @@
     ]
   },
   "devDependencies": {
-    "typescript-plugin-css-modules": "^5.0.1"
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-spellcheck": "^0.0.20",
+    "typescript-plugin-css-modules": "^5.0.1",
+    "husky": "^8.0.0"
   }
 }

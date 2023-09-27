@@ -1,5 +1,5 @@
-import React from "react";
-import s from "./AppHeaderItem.module.scss";
+import React from 'react';
+import s from './AppHeaderItem.module.scss';
 
 interface AppHeaderItemProps {
   title: string;
@@ -12,7 +12,7 @@ const AppHeaderItem: React.FC<AppHeaderItemProps> = ({
   icon,
   isActive = false,
 }) => {
-  const inactiveClassName = !isActive ? "text_color_inactive" : "";
+  const inactiveClassName = !isActive ? 'text_color_inactive' : '';
   const className = `text text_type_main-default ${inactiveClassName}`;
 
   return (
