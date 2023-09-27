@@ -1,0 +1,19 @@
+.appHeader {
+  margin: 0 auto;
+  max-width: 1280px;
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      display: flex;
+      gap: 8px;
+    }
+
+    svg {
+      flex: 1;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.ingredients {
+  &__tab {
+    display: flex;
+  }
+
+  &__content {
+    max-height: 700px;
+    overflow-y: auto;
+  }
+}
