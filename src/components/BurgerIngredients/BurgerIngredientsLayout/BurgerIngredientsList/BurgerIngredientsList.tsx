@@ -10,10 +10,10 @@ interface BurgerIngredientsListProps {
 }
 
 const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({ header, type, id }) => {
-  const [productsList, , setIngredientId, handleClickOpenModal] = useContext(IngredientsContext);
+  const [productsList, , setIngredientId, toggleModal] = useContext(IngredientsContext);
   const handleClick = (id: string) => {
     setIngredientId(id);
-    handleClickOpenModal();
+    toggleModal();
   }
   return (
     <div className={s.burgerIngredientsList} id={id}>

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import s from './ModalOverlay.module.scss';
 import { ModalProps } from '../types/types';
 
-const ModalOverlay: React.FC<ModalProps> = ({ onClick, children }) => {
+const ModalOverlay: React.FC<ModalProps> = ({ onClick }) => {
   useEffect(() => {
-    const closeModal = (event: any) => {
+    const closeModal = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && event) {
         onClick?.();
       }
