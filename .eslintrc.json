@@ -4,34 +4,19 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "@typescript-eslint",
-    "react-hooks",
-    "spellcheck"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended",
-    "prettier"
-  ],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "spellcheck", "prettier"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react-hooks/recommended"],
   "rules": {
     "object-curly-spacing": [2, "always"],
-    "prettier/prettier": ["error", { "singleQuote": true }],
+    "prettier/prettier": ["error", { "singleQuote": true, "printWidth": 120 }],
     "semi": ["warn", "always"],
     "comma-dangle": ["error", "always-multiline"],
-    "space-before-function-paren": [
-      "error",
-      { "anonymous": "always", "named": "never", "asyncArrow": "always" }
-    ],
+    "space-before-function-paren": ["error", { "anonymous": "always", "named": "never", "asyncArrow": "always" }],
     "react/jsx-max-props-per-line": [1, { "when": "multiline" }],
     "spellcheck/spell-checker": [
       "warn",
       {
-        "skipWords": ["acc", "dom", "keydown", "matchers", "Perf", "pb"]
+        "skipWords": ["acc", "dnd", "dom", "keydown", "matchers", "Perf", "pb", "redux"]
       }
     ],
     "no-console": [

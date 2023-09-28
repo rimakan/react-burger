@@ -1,63 +1,73 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import s from './BurgerConstructorLayout.module.scss';
-import {
-  ConstructorElement,
-  DragIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorFooter from '../BurgerConstructorFooter/BurgerConstructorFooter';
 import { ProductType } from '../../../models/product';
-import { IngredientsContext } from '../../pages/StellarBurgerMainPage';
+import { useDispatch, useSelector } from '../../../hooks';
+import {
+  addIngredientToConstructor,
+  getOrderPrice,
+} from '../../../store/reactBurger/constructorSlice/constructorSlice';
+import { getBurgerBun } from '../utils/getBurgerBun';
+import defaultImg from '../../../icons/burger.svg';
+import { useDrop } from 'react-dnd';
 
 const BurgerConstructorLayout: React.FC = () => {
-  const [ingredients] = useContext(IngredientsContext);
+  const dispatch = useDispatch();
 
-  const bun = ingredients[0];
+  const burgerIngredientsConstructorList = useSelector(
+    ({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients,
+  );
+  const burgerBun = useSelector(({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients)[0];
+  const orderPrice = useSelector(({ reactBurger }) => reactBurger.burgerConstructor.orderPrice);
+
+  useEffect(() => {
+    dispatch(getOrderPrice(burgerIngredientsConstructorList));
+  }, [dispatch, burgerIngredientsConstructorList]);
 
   const filteredProducts = useMemo(() => {
-    return ingredients.filter(({ type }) => type !== ProductType.Bun);
-  }, [ingredients]);
+    return burgerIngredientsConstructorList.filter(({ type }) => type !== ProductType.Bun);
+  }, [burgerIngredientsConstructorList]);
 
-  const orderSum = useMemo(() => {
-    return ingredients.reduce((prev, acc) => prev + acc.price, 0);
-  }, [ingredients]);
+  const [, drop] = useDrop(
+    () => ({
+      accept: 'ingredient',
+      drop: (ingredient) => dispatch(addIngredientToConstructor(ingredient)),
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
+      }),
+    }),
+    [burgerIngredientsConstructorList],
+  );
 
   return (
     <section className={`${s.burgerConstructorLayout}`}>
-      {bun && ingredients && (
-        <>
-          <ConstructorElement
-            text={`${bun.name} (верх)`}
-            thumbnail={bun.image_mobile}
-            type="top"
-            price={bun.price}
-            isLocked={true}
-            extraClass="m-4"
-          />
-          <div className={`${s.mainProductsList} custom-scroll`}>
-            {filteredProducts.map(({ _id, name, image_mobile, price }) => {
+      <>
+        {getBurgerBun(burgerBun, 'верх', 'top')}
+        <div className={`${s.mainProductsList} custom-scroll`} ref={drop}>
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map(({ _id, name, image_mobile, price }) => {
               return (
                 <div className={s.mainProductsList__listItem} key={_id}>
                   <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={name}
-                    thumbnail={image_mobile}
-                    price={price}
-                  />
+                  <ConstructorElement text={name} thumbnail={image_mobile} price={price} />
                 </div>
               );
-            })}
-          </div>
-          <ConstructorElement
-            text={`${bun.name} (низ)`}
-            thumbnail={bun.image_mobile}
-            type="bottom"
-            price={bun.price}
-            isLocked={true}
-            extraClass="m-4"
-          />
-          <BurgerConstructorFooter orderSum={orderSum} />
-        </>
-      )}
+            })
+          ) : (
+            <>
+              <ConstructorElement
+                text="Добавьте составляющие из списка ингредиентов"
+                thumbnail={defaultImg}
+                price={0}
+              />
+            </>
+          )}
+        </div>
+        {getBurgerBun(burgerBun, 'низ', 'bottom')}
+        <BurgerConstructorFooter orderSum={orderPrice} />
+      </>
     </section>
   );
 };
