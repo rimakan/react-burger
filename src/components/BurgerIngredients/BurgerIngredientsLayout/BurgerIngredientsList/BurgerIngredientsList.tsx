@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useMemo } from 'react';
 import s from './BurgerIngredientsList.module.scss';
 import IngredientCard from '../../../Common/IngredientCard/IngredientCard';
-import { IngredientsContext } from '../../../pages/StellarBurgerMainPage';
+import { useDispatch, useSelector } from '../../../../hooks';
+import { openIngredientDialog } from '../../../../store/reactBurger/ingredientsSlice/ingredientsSliceActions';
 
 interface BurgerIngredientsListProps {
   type: string;
@@ -9,34 +10,43 @@ interface BurgerIngredientsListProps {
   id: string;
 }
 
-const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({
-  header,
-  type,
-  id,
-}) => {
-  const [productsList, , setIngredientId, toggleModal] =
-    useContext(IngredientsContext);
+const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({ header, type, id }) => {
+  const ingredients = useSelector(({ reactBurger }) => reactBurger.burgerIngredients.ingredients);
+  const burgerConstructorIngredients = useSelector(
+    ({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients,
+  );
+
+  const getIngredientCount = useMemo(
+    () => (id: string) => {
+      return burgerConstructorIngredients.filter(({ _id }) => _id === id).length;
+    },
+    [burgerConstructorIngredients],
+  );
+
+  const dispatch = useDispatch();
+
   const handleClick = (id: string) => {
-    setIngredientId(id);
-    toggleModal();
+    dispatch(openIngredientDialog(id));
   };
+
   return (
     <div className={s.burgerIngredientsList} id={id}>
       <header className="pb-6">
         <h2 className="text text_type_main-medium">{header}</h2>
       </header>
       <div className={s.list}>
-        {productsList
-          .filter((product) => product.type === type)
-          .map(({ _id, __v, image, price, name }) => {
+        {ingredients
+          .filter((ingredient) => ingredient.type === type)
+          .map((ingredient) => {
             return (
               <IngredientCard
-                key={_id}
-                count={__v}
-                itemImage={image}
-                itemTitle={name}
-                itemPrice={price}
-                onClick={() => handleClick(_id)}
+                key={ingredient._id}
+                count={getIngredientCount(ingredient._id)}
+                itemImage={ingredient.image}
+                itemTitle={ingredient.name}
+                itemPrice={ingredient.price}
+                ingredient={ingredient}
+                onClick={() => handleClick(ingredient._id)}
               />
             );
           })}

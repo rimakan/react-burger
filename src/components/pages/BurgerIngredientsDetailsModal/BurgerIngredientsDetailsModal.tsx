@@ -1,21 +1,25 @@
-import React, { useContext, useMemo } from 'react';
+import React from 'react';
 import { Modal } from '../../uikit';
 import IngredientDetails from '../../Common/IngredientDetails/IngredientDetails';
-import { IngredientsContext } from '../StellarBurgerMainPage';
+import { useDispatch, useSelector } from '../../../hooks';
+import { closeIngredientDialog } from '../../../store/reactBurger/ingredientsSlice/ingredientsSliceActions';
 
 const BurgerIngredientsDetailsModal: React.FC = () => {
-  const [ingredients, ingredientId, , handleClickOpenModal] =
-    useContext(IngredientsContext);
-
-  const product = useMemo(
-    () => ingredients.find(({ _id }) => _id === ingredientId),
-    [ingredients, ingredientId],
+  const product = useSelector(({ reactBurger }) =>
+    reactBurger.burgerIngredients.ingredients.find(
+      ({ _id }) => _id === reactBurger.burgerIngredientsActions.ingredientId,
+    ),
   );
+  const dispatch = useDispatch();
+
+  const clickHandler = () => {
+    dispatch(closeIngredientDialog());
+  };
 
   return (
     <>
       {product && (
-        <Modal onClick={handleClickOpenModal} heading="Детали ингредиента">
+        <Modal onClick={clickHandler} heading="Детали ингредиента">
           <IngredientDetails product={product} />
         </Modal>
       )}
