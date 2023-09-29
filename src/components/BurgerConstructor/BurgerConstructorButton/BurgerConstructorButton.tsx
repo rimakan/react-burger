@@ -1,19 +1,26 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal } from '../../uikit';
 import OrderDetails from '../../Common/OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from '../../../hooks';
-import { cleanupConstructor } from '../../../store/reactBurger/constructorSlice/constructorSlice';
+import { cleanupConstructor, createOrder } from '../../../store/reactBurger/constructorSlice/constructorSlice';
+import { useModal } from '../../../hooks';
 
 const BurgerConstructorButton: React.FC = () => {
   const dispatch = useDispatch();
   const burgerConstructorIngredients = useSelector(
     ({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients,
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { order } = useSelector(({ reactBurger }) => reactBurger.burgerConstructor.relatedData);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
-  const handleClick = () => {
-    setIsModalOpen((prevState) => !prevState);
+  const handleClickOpenModal = () => {
+    dispatch(createOrder(burgerConstructorIngredients));
+    openModal();
+  };
+
+  const handleClickCloseModal = () => {
+    closeModal();
     dispatch(cleanupConstructor());
   };
   return (
@@ -22,14 +29,14 @@ const BurgerConstructorButton: React.FC = () => {
         type="primary"
         size="large"
         htmlType="button"
-        onClick={handleClick}
+        onClick={handleClickOpenModal}
         disabled={burgerConstructorIngredients.length === 0}
       >
         Оформить заказ
       </Button>
       {isModalOpen && (
-        <Modal onClick={handleClick}>
-          <OrderDetails orderId="034536" />
+        <Modal onClick={handleClickCloseModal}>
+          <OrderDetails orderId={order?.order.number} />
         </Modal>
       )}
     </>

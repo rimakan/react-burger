@@ -3,7 +3,7 @@ import s from './OrderDetails.module.scss';
 import acceptedIcon from '../../../icons/acceptedIcon.svg';
 
 interface OrderDetailsProps {
-  orderId: string;
+  orderId?: number;
 }
 
 const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {

@@ -3,9 +3,13 @@ import { useState, useCallback } from 'react';
 export const useModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const toggleModal = useCallback(() => {
-    setIsModalOpen((prevState) => !prevState);
+  const openModal = useCallback(() => {
+    setIsModalOpen(true);
   }, []);
 
-  return { isModalOpen, toggleModal };
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  return { isModalOpen, openModal, closeModal };
 };

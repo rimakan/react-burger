@@ -1,14 +1,48 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Product, ProductType } from '../../../models/product';
+import { Order } from '../../../models/order';
+import { createAsyncThunk } from '../../redux';
+import { BASE_URL } from '../../../constants/constants';
 
 interface ConstructorSliceInitialState {
   burgerConstructorIngredients: Product[];
   orderPrice: number;
+  relatedData: {
+    order: Order | null;
+  };
 }
+
+const createOrder = createAsyncThunk('reactBurger/burgerConstructor/createOrder', async (ingredients: Product[]) => {
+  const ingredientsIds = ingredients.map(({ _id }) => _id);
+  const body = {
+    ingredients: ingredientsIds,
+  };
+
+  const response = fetch(`${BASE_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      Promise.reject(`Возникла ошибка ${res.status}: ${res.statusText}`);
+    })
+    .catch((error) => console.error(error));
+
+  return response.then((data) => data);
+});
 
 const createInitialState = (): ConstructorSliceInitialState => ({
   burgerConstructorIngredients: [],
   orderPrice: 0,
+  relatedData: {
+    order: null,
+  },
 });
 
 const burgerConstructorSlice = createSlice({
@@ -39,9 +73,17 @@ const burgerConstructorSlice = createSlice({
       return createInitialState();
     },
   },
+  extraReducers(builder) {
+    builder.addCase(createOrder.fulfilled, (state, action) => {
+      state.relatedData.order = action.payload;
+    });
+    builder.addCase(createOrder.rejected, (state) => {
+      state.relatedData.order = null;
+    });
+  },
 });
 
 const { getOrderPrice, addIngredientToConstructor, removeIngredientFromConstructor, cleanupConstructor } =
   burgerConstructorSlice.actions;
-export { getOrderPrice, addIngredientToConstructor, removeIngredientFromConstructor, cleanupConstructor };
+export { getOrderPrice, addIngredientToConstructor, removeIngredientFromConstructor, cleanupConstructor, createOrder };
 export default burgerConstructorSlice.reducer;

@@ -4,7 +4,7 @@ import { createAsyncThunk } from '../../redux';
 import { createSlice } from '@reduxjs/toolkit';
 
 const getBurgerIngredients = createAsyncThunk('reactBurger/burgerIngredientsSlice/getBurgerIngredients', async () => {
-  const response = fetch(BASE_URL)
+  const response = fetch(`${BASE_URL}/ingredients`)
     .then((res) => {
       if (res.ok) {
         return res.json();
