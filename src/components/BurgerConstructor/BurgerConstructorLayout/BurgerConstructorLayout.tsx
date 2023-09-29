@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import s from './BurgerConstructorLayout.module.scss';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorFooter from '../BurgerConstructorFooter/BurgerConstructorFooter';
 import { Product, ProductType } from '../../../models/product';
 import { useDispatch, useSelector } from '../../../hooks';
@@ -13,6 +13,7 @@ import { getBurgerBun } from '../utils/getBurgerBun';
 import defaultImg from '../../../icons/burger.svg';
 import { useDrop } from 'react-dnd';
 import { v4 as uuid } from 'uuid';
+import BurgerConstructorItem from '../BurgerConstructorItem/BurgerConstructorItem';
 
 const BurgerConstructorLayout: React.FC = () => {
   const dispatch = useDispatch();
@@ -59,18 +60,11 @@ const BurgerConstructorLayout: React.FC = () => {
         {getBurgerBun(burgerBun, 'верх', 'top')}
         <div className={`${s.mainProductsList} custom-scroll`} ref={drop}>
           {filteredProducts.length > 0 ? (
-            filteredProducts.map(({ _id, name, image_mobile, price, dragId }) => {
+            filteredProducts.map((product) => {
+              const { _id, dragId } = product;
               const key = `${_id}_${uuid()}`;
               return (
-                <div className={s.mainProductsList__listItem} key={key}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={name}
-                    thumbnail={image_mobile}
-                    price={price}
-                    handleClose={() => handleClickIngredient(dragId)}
-                  />
-                </div>
+                <BurgerConstructorItem key={key} product={product} onClick={() => handleClickIngredient(dragId)} />
               );
             })
           ) : (

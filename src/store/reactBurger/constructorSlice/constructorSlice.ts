@@ -6,6 +6,7 @@ import { BASE_URL } from '../../../constants/constants';
 
 interface ConstructorSliceInitialState {
   burgerConstructorIngredients: Product[];
+  isBunPresent: boolean;
   orderPrice: number;
   relatedData: {
     order: Order | null;
@@ -39,6 +40,7 @@ const createOrder = createAsyncThunk('reactBurger/burgerConstructor/createOrder'
 
 const createInitialState = (): ConstructorSliceInitialState => ({
   burgerConstructorIngredients: [],
+  isBunPresent: false,
   orderPrice: 0,
   relatedData: {
     order: null,
@@ -59,8 +61,8 @@ const burgerConstructorSlice = createSlice({
         } else {
           state.burgerConstructorIngredients.unshift(action.payload);
         }
+        state.isBunPresent = true;
       } else {
-        console.info(action.payload);
         state.burgerConstructorIngredients.push(action.payload);
       }
     },

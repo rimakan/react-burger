@@ -8,15 +8,19 @@ import { useModal } from '../../../hooks';
 
 const BurgerConstructorButton: React.FC = () => {
   const dispatch = useDispatch();
-  const burgerConstructorIngredients = useSelector(
-    ({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients,
-  );
-  const { order } = useSelector(({ reactBurger }) => reactBurger.burgerConstructor.relatedData);
+  const {
+    burgerConstructorIngredients,
+    isBunPresent,
+    relatedData: { order },
+  } = useSelector(({ reactBurger }) => reactBurger.burgerConstructor);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const handleClickOpenModal = () => {
-    dispatch(createOrder(burgerConstructorIngredients));
-    openModal();
+    dispatch(createOrder(burgerConstructorIngredients))
+      .unwrap()
+      .then(() => {
+        openModal();
+      });
   };
 
   const handleClickCloseModal = () => {
@@ -30,7 +34,7 @@ const BurgerConstructorButton: React.FC = () => {
         size="large"
         htmlType="button"
         onClick={handleClickOpenModal}
-        disabled={burgerConstructorIngredients.length === 0}
+        disabled={!isBunPresent && !!burgerConstructorIngredients}
       >
         Оформить заказ
       </Button>
