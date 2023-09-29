@@ -2,9 +2,11 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { Modal } from '../../uikit';
 import OrderDetails from '../../Common/OrderDetails/OrderDetails';
-import { useSelector } from '../../../hooks';
+import { useDispatch, useSelector } from '../../../hooks';
+import { cleanupConstructor } from '../../../store/reactBurger/constructorSlice/constructorSlice';
 
 const BurgerConstructorButton: React.FC = () => {
+  const dispatch = useDispatch();
   const burgerConstructorIngredients = useSelector(
     ({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients,
   );
@@ -12,6 +14,7 @@ const BurgerConstructorButton: React.FC = () => {
 
   const handleClick = () => {
     setIsModalOpen((prevState) => !prevState);
+    dispatch(cleanupConstructor());
   };
   return (
     <>

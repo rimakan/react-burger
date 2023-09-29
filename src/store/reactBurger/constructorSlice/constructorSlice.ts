@@ -26,12 +26,22 @@ const burgerConstructorSlice = createSlice({
           state.burgerConstructorIngredients.unshift(action.payload);
         }
       } else {
+        console.info(action.payload);
         state.burgerConstructorIngredients.push(action.payload);
       }
+    },
+    removeIngredientFromConstructor(state, action) {
+      state.burgerConstructorIngredients = state.burgerConstructorIngredients.filter(
+        ({ dragId }) => dragId !== action.payload,
+      );
+    },
+    cleanupConstructor() {
+      return createInitialState();
     },
   },
 });
 
-const { getOrderPrice, addIngredientToConstructor } = burgerConstructorSlice.actions;
-export { getOrderPrice, addIngredientToConstructor };
+const { getOrderPrice, addIngredientToConstructor, removeIngredientFromConstructor, cleanupConstructor } =
+  burgerConstructorSlice.actions;
+export { getOrderPrice, addIngredientToConstructor, removeIngredientFromConstructor, cleanupConstructor };
 export default burgerConstructorSlice.reducer;

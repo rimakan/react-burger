@@ -2,15 +2,17 @@ import React, { useEffect, useMemo } from 'react';
 import s from './BurgerConstructorLayout.module.scss';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorFooter from '../BurgerConstructorFooter/BurgerConstructorFooter';
-import { ProductType } from '../../../models/product';
+import { Product, ProductType } from '../../../models/product';
 import { useDispatch, useSelector } from '../../../hooks';
 import {
   addIngredientToConstructor,
   getOrderPrice,
+  removeIngredientFromConstructor,
 } from '../../../store/reactBurger/constructorSlice/constructorSlice';
 import { getBurgerBun } from '../utils/getBurgerBun';
 import defaultImg from '../../../icons/burger.svg';
 import { useDrop } from 'react-dnd';
+import { v4 as uuid } from 'uuid';
 
 const BurgerConstructorLayout: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,10 +31,20 @@ const BurgerConstructorLayout: React.FC = () => {
     return burgerIngredientsConstructorList.filter(({ type }) => type !== ProductType.Bun);
   }, [burgerIngredientsConstructorList]);
 
+  const handleClickIngredient = (id: string) => {
+    dispatch(removeIngredientFromConstructor(id));
+  };
+
   const [, drop] = useDrop(
     () => ({
       accept: 'ingredient',
-      drop: (ingredient) => dispatch(addIngredientToConstructor(ingredient)),
+      drop: (ingredient: Product) =>
+        dispatch(
+          addIngredientToConstructor({
+            ...ingredient,
+            dragId: `${ingredient._id}_${uuid()}`,
+          }),
+        ),
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
         canDrop: !!monitor.canDrop(),
@@ -47,11 +59,17 @@ const BurgerConstructorLayout: React.FC = () => {
         {getBurgerBun(burgerBun, 'верх', 'top')}
         <div className={`${s.mainProductsList} custom-scroll`} ref={drop}>
           {filteredProducts.length > 0 ? (
-            filteredProducts.map(({ _id, name, image_mobile, price }) => {
+            filteredProducts.map(({ _id, name, image_mobile, price, dragId }) => {
+              const key = `${_id}_${uuid()}`;
               return (
-                <div className={s.mainProductsList__listItem} key={_id}>
+                <div className={s.mainProductsList__listItem} key={key}>
                   <DragIcon type="primary" />
-                  <ConstructorElement text={name} thumbnail={image_mobile} price={price} />
+                  <ConstructorElement
+                    text={name}
+                    thumbnail={image_mobile}
+                    price={price}
+                    handleClose={() => handleClickIngredient(dragId)}
+                  />
                 </div>
               );
             })
@@ -61,6 +79,7 @@ const BurgerConstructorLayout: React.FC = () => {
                 text="Добавьте составляющие из списка ингредиентов"
                 thumbnail={defaultImg}
                 price={0}
+                isLocked={true}
               />
             </>
           )}

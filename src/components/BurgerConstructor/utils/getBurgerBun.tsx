@@ -1,10 +1,10 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Product } from '../../../models/product';
+import { Product, ProductType } from '../../../models/product';
 import defaultImg from '../../../icons/burger.svg';
 
 export const getBurgerBun = (bun: Product, position: string, type: 'top' | 'bottom') => {
   let burgerBun;
-  if (bun) {
+  if (bun && bun?.type === ProductType.Bun) {
     burgerBun = (
       <ConstructorElement
         text={`${bun.name} (${position})`}
