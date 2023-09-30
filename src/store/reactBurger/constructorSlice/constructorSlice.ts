@@ -10,6 +10,7 @@ interface ConstructorSliceInitialState {
   orderPrice: number;
   relatedData: {
     order: Order | null;
+    replacedProduct: Product | null;
   };
 }
 
@@ -44,6 +45,7 @@ const createInitialState = (): ConstructorSliceInitialState => ({
   orderPrice: 0,
   relatedData: {
     order: null,
+    replacedProduct: null,
   },
 });
 
@@ -74,6 +76,21 @@ const burgerConstructorSlice = createSlice({
     cleanupConstructor() {
       return createInitialState();
     },
+    setReplacedIngredient(state, action) {
+      state.relatedData.replacedProduct = action.payload;
+    },
+    sortIngredients(state, action) {
+      const from = Object.assign(action.payload.from);
+      const to = Object.assign(action.payload.to);
+      const burgerConstructorIngredients = [...state.burgerConstructorIngredients];
+      const toIndex = burgerConstructorIngredients.findIndex(({ dragId }) => dragId === to.dragId);
+      const fromIndex = burgerConstructorIngredients.findIndex(({ dragId }) => dragId === from.dragId);
+      [burgerConstructorIngredients[toIndex], burgerConstructorIngredients[fromIndex]] = [
+        burgerConstructorIngredients[fromIndex],
+        burgerConstructorIngredients[toIndex],
+      ];
+      state.burgerConstructorIngredients = burgerConstructorIngredients;
+    },
   },
   extraReducers(builder) {
     builder.addCase(createOrder.fulfilled, (state, action) => {
@@ -85,7 +102,21 @@ const burgerConstructorSlice = createSlice({
   },
 });
 
-const { getOrderPrice, addIngredientToConstructor, removeIngredientFromConstructor, cleanupConstructor } =
-  burgerConstructorSlice.actions;
-export { getOrderPrice, addIngredientToConstructor, removeIngredientFromConstructor, cleanupConstructor, createOrder };
+const {
+  getOrderPrice,
+  addIngredientToConstructor,
+  removeIngredientFromConstructor,
+  cleanupConstructor,
+  sortIngredients,
+  setReplacedIngredient,
+} = burgerConstructorSlice.actions;
+export {
+  getOrderPrice,
+  addIngredientToConstructor,
+  removeIngredientFromConstructor,
+  cleanupConstructor,
+  createOrder,
+  sortIngredients,
+  setReplacedIngredient,
+};
 export default burgerConstructorSlice.reducer;
