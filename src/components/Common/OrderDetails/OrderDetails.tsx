@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './OrderDetails.module.scss';
 import acceptedIcon from '../../../icons/acceptedIcon.svg';
+import { Spinner } from '../../uikit';
 
 interface OrderDetailsProps {
   orderId?: number;
@@ -11,7 +12,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
   return (
     <div className={s.orderDetails}>
       <section className={s.orderNumberBox}>
-        <p className={`${s.orderNumberBox__id} text text_type_digits-large`}>{orderId}</p>
+        <p className={`${s.orderNumberBox__id} text text_type_digits-large`}>{orderId ?? <Spinner />}</p>
         <p className="text text_type_main-medium">идентификатор заказа</p>
       </section>
       <img src={acceptedIcon} />

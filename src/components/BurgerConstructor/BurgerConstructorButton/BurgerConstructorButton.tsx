@@ -16,11 +16,8 @@ const BurgerConstructorButton: React.FC = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const handleClickOpenModal = () => {
-    dispatch(createOrder(burgerConstructorIngredients))
-      .unwrap()
-      .then(() => {
-        openModal();
-      });
+    dispatch(createOrder(burgerConstructorIngredients));
+    openModal();
   };
 
   const handleClickCloseModal = () => {

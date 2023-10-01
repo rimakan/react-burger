@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Product, ProductType } from '../../../models/product';
 import { Order } from '../../../models/order';
 import { createAsyncThunk } from '../../redux';
-import { BASE_URL } from '../../../constants/constants';
+import { sendRequest } from '../../../components/utils/responseUtils';
 
 interface ConstructorSliceInitialState {
   burgerConstructorIngredients: Product[];
@@ -20,23 +20,13 @@ const createOrder = createAsyncThunk('reactBurger/burgerConstructor/createOrder'
     ingredients: ingredientsIds,
   };
 
-  const response = fetch(`${BASE_URL}/orders`, {
+  return sendRequest('orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      Promise.reject(`Возникла ошибка ${res.status}: ${res.statusText}`);
-    })
-    .catch((error) => console.error(error));
-
-  return response.then((data) => data);
+  }).then((data) => data);
 });
 
 const createInitialState = (): ConstructorSliceInitialState => ({

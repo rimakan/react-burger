@@ -1,19 +1,10 @@
-import { BASE_URL } from '../../../constants/constants';
+import { sendRequest } from '../../../components/utils/responseUtils';
 import { Product } from '../../../models/product';
 import { createAsyncThunk } from '../../redux';
 import { createSlice } from '@reduxjs/toolkit';
 
 const getBurgerIngredients = createAsyncThunk('reactBurger/burgerIngredientsSlice/getBurgerIngredients', async () => {
-  const response = fetch(`${BASE_URL}/ingredients`)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      Promise.reject(`Произошла ошибка: ${res.status}`);
-    })
-    .catch((error) => console.error(error));
-
-  return response.then((data) => data);
+  return sendRequest('ingredients').then((data) => data);
 });
 
 interface BurgerIngredientsSliceInitialState {

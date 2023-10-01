@@ -61,10 +61,9 @@ const BurgerConstructorLayout: React.FC = () => {
         <div className={`${s.mainProductsList} custom-scroll`} ref={drop}>
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => {
-              const { _id, dragId } = product;
-              const key = `${_id}_${uuid()}`;
+              const { dragId } = product;
               return (
-                <BurgerConstructorItem key={key} product={product} onClick={() => handleClickIngredient(dragId)} />
+                <BurgerConstructorItem key={dragId} product={product} onClick={() => handleClickIngredient(dragId)} />
               );
             })
           ) : (
