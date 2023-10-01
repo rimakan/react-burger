@@ -12,7 +12,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
   return (
     <div className={s.orderDetails}>
       <section className={s.orderNumberBox}>
-        <p className={`${s.orderNumberBox__id} text text_type_digits-large`}>{orderId ?? <Spinner />}</p>
+        {orderId ? <p className={`${s.orderNumberBox__id} text text_type_digits-large`}>{orderId}</p> : <Spinner />}
         <p className="text text_type_main-medium">идентификатор заказа</p>
       </section>
       <img src={acceptedIcon} />
