@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import s from './BurgerIngredientsList.module.scss';
 import IngredientCard from '../../../Common/IngredientCard/IngredientCard';
 import { useDispatch, useSelector } from '../../../../hooks';
@@ -7,10 +7,11 @@ import { openIngredientDialog } from '../../../../store/reactBurger/ingredientsS
 interface BurgerIngredientsListProps {
   type: string;
   header: string;
+  ref: React.ForwardedRef<HTMLDivElement | null>;
   id: string;
 }
 
-const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({ header, type, id }) => {
+const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = forwardRef(({ header, type, id }, ref) => {
   const ingredients = useSelector(({ reactBurger }) => reactBurger.burgerIngredients.ingredients);
   const burgerConstructorIngredients = useSelector(
     ({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients,
@@ -30,7 +31,7 @@ const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({ header, t
   };
 
   return (
-    <div className={s.burgerIngredientsList} id={id}>
+    <div className={s.burgerIngredientsList} id={id} ref={ref}>
       <header className="pb-6">
         <h2 className="text text_type_main-medium">{header}</h2>
       </header>
@@ -40,7 +41,7 @@ const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({ header, t
           .map((ingredient) => {
             return (
               <IngredientCard
-                key={ingredient._id}
+                key={`${ingredient._id}`}
                 count={getIngredientCount(ingredient._id)}
                 itemImage={ingredient.image}
                 itemTitle={ingredient.name}
@@ -53,6 +54,6 @@ const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({ header, t
       </div>
     </div>
   );
-};
+});
 
 export default BurgerIngredientsList;
