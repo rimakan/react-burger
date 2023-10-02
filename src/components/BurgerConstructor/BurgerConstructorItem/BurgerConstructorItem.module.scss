@@ -1,0 +1,11 @@
+.burgerConstructorItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: auto;
+  margin-right: 24px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}

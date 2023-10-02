@@ -6,22 +6,13 @@ import ModalOverlay from './ModalOverlay/ModalOverlay';
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const overlay: HTMLElement = document.getElementById('overlay')!;
 
-const Modal: React.FC<ModalProps> = ({
-  onClick,
-  children,
-  heading,
-  className,
-}) => {
+const Modal: React.FC<ModalProps> = ({ onClick, children, heading, className }) => {
   return (
     <>
       {createPortal(
         <>
           <ModalOverlay onClick={onClick} />
-          <ModalWindow
-            onClick={onClick}
-            heading={heading}
-            className={className}
-          >
+          <ModalWindow onClick={onClick} heading={heading} className={className}>
             {children}
           </ModalWindow>
         </>,

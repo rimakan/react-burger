@@ -17,4 +17,5 @@ export interface Product {
   image_mobile: string;
   image_large: string;
   __v: number;
+  dragId: string;
 }
