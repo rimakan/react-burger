@@ -2,6 +2,7 @@ import React from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './AppHeader.module.scss';
 import AppHeaderItem from '../Common/AppHeaderItem/AppHeaderItem';
+import { Link } from 'react-router-dom';
 
 const AppHeader: React.FC = () => {
   return (
@@ -11,7 +12,9 @@ const AppHeader: React.FC = () => {
           <AppHeaderItem title="Конструктор" icon={<BurgerIcon type="primary" />} isActive={true} />
           <AppHeaderItem title="Лента заказов" icon={<ListIcon type="secondary" />} />
         </div>
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <AppHeaderItem title="Личный кабинет" icon={<ProfileIcon type="secondary" />} />
       </nav>
     </header>
