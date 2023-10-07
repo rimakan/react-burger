@@ -10,22 +10,33 @@ const pathLabelDict: { [key: string]: string } = {
 };
 
 const ResetPasswordForm: React.FC = () => {
-  const { value, handleEmailChange, handlePasswordChange, handleEmailCodeChange, submitForm, isSubmitDisabled } =
-    useForm();
+  const { formData, handleValueChange, submitForm, isSubmitDisabled } = useForm();
   const pathname = useFormPathname();
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleValueChange({ email: e.target.value });
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleValueChange({ password: e.target.value });
+  };
+
+  const handleEmailCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleValueChange({ emailCode: e.target.value });
+  };
 
   return (
     <FormWrapper onSubmit={submitForm}>
       {pathname === 'forgot-password' && (
         <>
-          <EmailInput value={value.email} placeholder="Укажите e-mail" onChange={handleEmailChange} />
+          <EmailInput value={formData.email} placeholder="Укажите e-mail" onChange={handleEmailChange} />
         </>
       )}
 
       {pathname === 'reset-password' && (
         <>
-          <PasswordInput value={value.password} placeholder="Введите новый пароль" onChange={handlePasswordChange} />
-          <Input value={value.emailCode} placeholder="Введите код из письма" onChange={handleEmailCodeChange} />
+          <PasswordInput value={formData.password} placeholder="Введите новый пароль" onChange={handlePasswordChange} />
+          <Input value={formData.emailCode} placeholder="Введите код из письма" onChange={handleEmailCodeChange} />
         </>
       )}
 

@@ -5,14 +5,26 @@ import FormWrapper from '../FormWrapper/FormWrapper';
 import FormFooterItem from '../FormFooterItem/FormFooterItem';
 
 const LoginForm: React.FC = () => {
-  const { value, handleNameChange, handleEmailChange, handlePasswordChange, submitForm, isSubmitDisabled } = useForm();
+  const { formData, handleValueChange, submitForm, isSubmitDisabled } = useForm();
   const pathname = useFormPathname();
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleValueChange({ name: e.target.value });
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleValueChange({ email: e.target.value });
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleValueChange({ password: e.target.value });
+  };
 
   return (
     <FormWrapper onSubmit={submitForm}>
-      {pathname === 'register' && <Input value={value.name} placeholder="Имя" onChange={handleNameChange} />}
-      <EmailInput value={value.email} placeholder="E-mail" onChange={handleEmailChange} />
-      <PasswordInput value={value.password} placeholder="Пароль" onChange={handlePasswordChange} />
+      {pathname === 'register' && <Input value={formData.name} placeholder="Имя" onChange={handleNameChange} />}
+      <EmailInput value={formData.email} placeholder="E-mail" onChange={handleEmailChange} />
+      <PasswordInput value={formData.password} placeholder="Пароль" onChange={handlePasswordChange} />
       <Button htmlType="submit" disabled={!isSubmitDisabled} extraClass="mb-6">
         {pathname === 'login' && 'Войти'}
         {pathname === 'register' && 'Зарегистрироваться'}

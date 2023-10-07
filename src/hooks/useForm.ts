@@ -2,7 +2,14 @@ import { SyntheticEvent, useMemo, useState } from 'react';
 import { useFormPathname } from './useFormPathname';
 import { useNavigate } from 'react-router-dom';
 
-const initialState = {
+interface InitialState {
+  name: string;
+  email: string;
+  password: string;
+  emailCode: string;
+}
+
+const initialState: InitialState = {
   name: '',
   email: '',
   password: '',
@@ -10,42 +17,21 @@ const initialState = {
 };
 
 export const useForm = () => {
-  const [value, setValue] = useState(initialState);
+  const [formData, setFormData] = useState<InitialState>(initialState);
   const pathname = useFormPathname();
   const navigate = useNavigate();
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((prevState) => ({
+  const handleValueChange = (changes: Partial<InitialState>) => {
+    setFormData((prevState) => ({
       ...prevState,
-      name: e.target.value,
-    }));
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((prevState) => ({
-      ...prevState,
-      email: e.target.value,
-    }));
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((prevState) => ({
-      ...prevState,
-      password: e.target.value,
-    }));
-  };
-
-  const handleEmailCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((prevState) => ({
-      ...prevState,
-      emailCode: e.target.value,
+      ...changes,
     }));
   };
 
   const submitForm = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    const { name, email, password } = value;
+    const { name, email, password } = formData;
 
     if (pathname === 'register') {
       console.info(name, email, password);
@@ -61,37 +47,34 @@ export const useForm = () => {
     }
 
     if (pathname === 'reset-password') {
-      const { emailCode } = value;
+      const { emailCode } = formData;
       console.info(password, emailCode);
     }
 
-    setValue(initialState);
+    setFormData(initialState);
   };
 
   const isSubmitDisabled = useMemo(() => {
     if (pathname === 'register') {
-      return value.name !== '' || value.password !== '' || value.email !== '';
+      return formData.name !== '' && formData.password !== '' && formData.email !== '';
     }
 
     if (pathname === 'login') {
-      return value.email !== '' || value.password !== '';
+      return formData.email !== '' && formData.password !== '';
     }
 
     if (pathname === 'forgot-password') {
-      return value.email !== '';
+      return formData.email !== '';
     }
 
     if (pathname === 'reset-password') {
-      return value.password !== '' || value.emailCode !== '';
+      return formData.password !== '' && formData.emailCode !== '';
     }
-  }, [pathname, value]);
+  }, [pathname, formData]);
 
   return {
-    value,
-    handleNameChange,
-    handleEmailChange,
-    handlePasswordChange,
-    handleEmailCodeChange,
+    formData,
+    handleValueChange,
     submitForm,
     isSubmitDisabled,
   };
