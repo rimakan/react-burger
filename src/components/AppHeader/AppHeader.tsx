@@ -7,15 +7,19 @@ import { Link } from 'react-router-dom';
 const AppHeader: React.FC = () => {
   return (
     <header className={s.appHeader}>
-      <nav className="pt-4 pb-4">
-        <div className={s.appHeader__menuItemsWrapper}>
+      <nav className="pt-7">
+        <div className={s.menuItemsWrapper}>
           <AppHeaderItem title="Конструктор" icon={<BurgerIcon type="primary" />} isActive={true} />
           <AppHeaderItem title="Лента заказов" icon={<ListIcon type="secondary" />} />
         </div>
         <Link to="/">
-          <Logo />
+          <span className={s.logo}>
+            <Logo />
+          </span>
         </Link>
-        <AppHeaderItem title="Личный кабинет" icon={<ProfileIcon type="secondary" />} />
+        <div className={s.personalAccount}>
+          <AppHeaderItem title="Личный кабинет" icon={<ProfileIcon type="secondary" />} />
+        </div>
       </nav>
     </header>
   );
