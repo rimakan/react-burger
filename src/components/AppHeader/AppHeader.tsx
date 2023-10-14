@@ -10,6 +10,7 @@ const AppHeader: React.FC = () => {
       <nav className="pt-7">
         <div className={s.menuItemsWrapper}>
           <AppHeaderItem title="Конструктор" icon={<BurgerIcon type="primary" />} isActive={true} />
+
           <AppHeaderItem title="Лента заказов" icon={<ListIcon type="secondary" />} />
         </div>
         <Link to="/">
