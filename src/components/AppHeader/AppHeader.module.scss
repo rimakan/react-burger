@@ -12,8 +12,10 @@
       gap: 8px;
     }
 
-    a {
-      margin-left: 115px;
+    .logo {
+      margin-left: 118px;
+      display: flex;
+      align-items: center;
     }
 
     .personalAccount {

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ResetPasswordPage from '../pages/ResetPasswordPage/ResetPasswordPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPasswordPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
+import OrdersHistoryPage from '../pages/OrdersHistoryPage/OrdersHistoryPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/orders" element={<OrdersHistoryPage />} />
         </Routes>
       </BrowserRouter>
     </div>

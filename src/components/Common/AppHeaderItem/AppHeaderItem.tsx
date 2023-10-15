@@ -7,9 +7,8 @@ interface AppHeaderItemProps {
   isActive?: boolean;
 }
 
-const AppHeaderItem: React.FC<AppHeaderItemProps> = ({ title, icon, isActive = false }) => {
-  const inactiveClassName = !isActive ? 'text_color_inactive' : '';
-  const className = `text text_type_main-default ${inactiveClassName}`;
+const AppHeaderItem: React.FC<AppHeaderItemProps> = ({ title, icon }) => {
+  const className = 'text text_type_main-default';
 
   return (
     <div className={`pl-5 pr-5 pt-4 pb-4 ${s.appHeaderItem}`}>
