@@ -1,47 +1,40 @@
-import React, { SyntheticEvent } from 'react';
-import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useForm } from '../../../../hooks';
+import React from 'react';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import FormWrapper from '../../../Common/FormWrapper/FormWrapper';
 import FormFooterItem from '../../../Common/FormFooterItem/FormFooterItem';
-
-interface RegisterFormInitialState {
-  name: string;
-  email: string;
-  password: string;
-}
-
-const RegisterFormInitialState: RegisterFormInitialState = {
-  name: '',
-  email: '',
-  password: '',
-};
+import { useRegisterForm } from './useRegisterForm';
+import { InputField } from '../../../uikit';
 
 const RegisterForm: React.FC = () => {
-  const { formData, handleValueChange } = useForm(RegisterFormInitialState);
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleValueChange({ name: e.target.value });
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleValueChange({ email: e.target.value });
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleValueChange({ password: e.target.value });
-  };
-
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    console.info(formData.name, formData.email, formData.password);
-  };
-
+  const { handleSubmit, handleNameChange, handleEmailChange, handlePasswordChange, formData, errors, isValid } =
+    useRegisterForm();
   return (
     <FormWrapper onSubmit={handleSubmit}>
-      <Input value={formData.name} placeholder="Имя" onChange={handleNameChange} />
-      <EmailInput value={formData.email} placeholder="E-mail" onChange={handleEmailChange} />
-      <PasswordInput value={formData.password} placeholder="Пароль" onChange={handlePasswordChange} />
-      <Button htmlType="submit" extraClass="mb-6">
+      <InputField
+        type="text"
+        value={formData.name}
+        placeholder="Имя"
+        onChange={handleNameChange}
+        error={!!errors.name}
+        errorText={errors.name}
+      />
+      <InputField
+        type="email"
+        value={formData.email}
+        placeholder="E-mail"
+        onChange={handleEmailChange}
+        error={!!errors.email}
+        errorText={errors.email}
+      />
+      <InputField
+        type="password"
+        value={formData.password}
+        placeholder="Пароль"
+        onChange={handlePasswordChange}
+        error={!!errors.password}
+        errorText={errors.password}
+      />
+      <Button htmlType="submit" extraClass="mb-6" disabled={!isValid}>
         Зарегистрироваться
       </Button>
       <footer>

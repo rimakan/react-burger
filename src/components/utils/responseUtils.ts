@@ -7,6 +7,6 @@ export const checkRequest = (res: Response) => {
   return Promise.reject(`Ошибка ${res.status}`);
 };
 
-export const sendRequest = async (slug: string, options: RequestInit | undefined = undefined) => {
+export const sendRequest = async <T>(slug: string, options: RequestInit | undefined = undefined): Promise<T> => {
   return fetch(`${BASE_URL}/${slug}`, options).then(checkRequest);
 };

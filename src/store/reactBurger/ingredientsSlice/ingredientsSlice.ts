@@ -1,10 +1,11 @@
 import { sendRequest } from '../../../components/utils/responseUtils';
 import { Product } from '../../../models/product';
+import { IngredientsResponse } from '../../../models/response';
 import { createAsyncThunk } from '../../redux';
 import { createSlice } from '@reduxjs/toolkit';
 
 const getBurgerIngredients = createAsyncThunk('reactBurger/burgerIngredientsSlice/getBurgerIngredients', async () => {
-  return sendRequest('ingredients').then((data) => data);
+  return sendRequest<IngredientsResponse>('ingredients').then((data) => data);
 });
 
 interface BurgerIngredientsSliceInitialState {

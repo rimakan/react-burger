@@ -3,6 +3,7 @@ import s from './BurgerIngredientsList.module.scss';
 import IngredientCard from '../../../Common/IngredientCard/IngredientCard';
 import { useDispatch, useSelector } from '../../../../hooks';
 import { openIngredientDialog } from '../../../../store/reactBurger/ingredientsSlice/ingredientsSliceActions';
+import { useNavigate } from 'react-router-dom';
 
 interface BurgerIngredientsListProps {
   type: string;
@@ -12,6 +13,7 @@ interface BurgerIngredientsListProps {
 }
 
 const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = forwardRef(({ header, type, id }, ref) => {
+  const navigate = useNavigate();
   const ingredients = useSelector(({ reactBurger }) => reactBurger.burgerIngredients.ingredients);
   const burgerConstructorIngredients = useSelector(
     ({ reactBurger }) => reactBurger.burgerConstructor.burgerConstructorIngredients,
@@ -28,6 +30,7 @@ const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = forwardRef((
 
   const handleClick = (id: string) => {
     dispatch(openIngredientDialog(id));
+    navigate(`/ingredients/${id}`);
   };
 
   return (

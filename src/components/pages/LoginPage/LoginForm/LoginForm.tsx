@@ -1,40 +1,24 @@
-import React, { SyntheticEvent } from 'react';
-import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useForm } from '../../../../hooks';
+import React from 'react';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import FormWrapper from '../../../Common/FormWrapper/FormWrapper';
 import FormFooterItem from '../../../Common/FormFooterItem/FormFooterItem';
-
-interface LoginFormInitialState {
-  email: string;
-  password: string;
-}
-
-const LoginFormInitialState: LoginFormInitialState = {
-  email: '',
-  password: '',
-};
+import { useLoginForm } from './useLoginForm';
+import { InputField } from '../../../uikit';
 
 const LoginForm: React.FC = () => {
-  const { formData, handleValueChange } = useForm(LoginFormInitialState);
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleValueChange({ email: e.target.value });
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleValueChange({ password: e.target.value });
-  };
-
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    console.info(formData.email, formData.password);
-  };
-
+  const { handleSubmit, handleEmailChange, handlePasswordChange, formData, errors, isValid } = useLoginForm();
   return (
     <FormWrapper onSubmit={handleSubmit}>
-      <EmailInput value={formData.email} placeholder="E-mail" onChange={handleEmailChange} />
-      <PasswordInput value={formData.password} placeholder="Пароль" onChange={handlePasswordChange} />
-      <Button htmlType="submit" extraClass="mb-6">
+      <InputField
+        type="email"
+        value={formData.email}
+        placeholder="E-mail"
+        onChange={handleEmailChange}
+        error={formData.email.length > 0 && !!errors.email}
+        errorText={errors.email}
+      />
+      <InputField type="password" value={formData.password} placeholder="Пароль" onChange={handlePasswordChange} />
+      <Button htmlType="submit" extraClass="mb-6" disabled={!isValid}>
         Войти
       </Button>
       <footer>

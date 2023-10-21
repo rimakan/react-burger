@@ -1,35 +1,22 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import FormWrapper from '../../../Common/FormWrapper/FormWrapper';
-import { useForm } from '../../../../hooks';
-import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import FormFooterItem from '../../../Common/FormFooterItem/FormFooterItem';
-import { useNavigate } from 'react-router-dom';
-
-interface ForgotPasswordInitialState {
-  email: string;
-}
-
-const ForgotPasswordInitialState: ForgotPasswordInitialState = {
-  email: '',
-};
+import { useForgotPasswordForm } from './useForgotPasswordForm';
+import { InputField } from '../../../uikit';
 
 const ForgotPasswordForm: React.FC = () => {
-  const navigate = useNavigate();
-  const { formData, handleValueChange } = useForm(ForgotPasswordInitialState);
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleValueChange({ email: e.target.value });
-  };
-
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    console.info(formData.email);
-    navigate('/reset-password');
-  };
-
+  const { formData, handleEmailChange, handleSubmit, errors } = useForgotPasswordForm();
   return (
     <FormWrapper onSubmit={handleSubmit}>
-      <EmailInput value={formData.email} placeholder="Укажите e-mail" onChange={handleEmailChange} />
+      <InputField
+        type="email"
+        value={formData.email}
+        placeholder="Укажите e-mail"
+        errorText={errors.email}
+        error={!!errors.email}
+        onChange={handleEmailChange}
+      />
       <Button htmlType="submit" extraClass="mb-6">
         Сохранить
       </Button>

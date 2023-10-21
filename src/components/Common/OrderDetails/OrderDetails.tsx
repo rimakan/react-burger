@@ -15,7 +15,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
         {orderId ? <p className={`${s.orderNumberBox__id} text text_type_digits-large`}>{orderId}</p> : <Spinner />}
         <p className="text text_type_main-medium">идентификатор заказа</p>
       </section>
-      <img src={acceptedIcon} />
+      <img src={acceptedIcon} alt="accepted order icon" />
       <footer>
         <p className={className}>Ваш заказ начали готовить</p>
         <p className={`${className} text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>

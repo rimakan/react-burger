@@ -1,13 +1,61 @@
 import React from 'react';
 import s from './ProfileForm.module.scss';
-import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { InputField } from '../../../uikit';
+import { useProfileForm } from './useProfileForm';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const ProfileForm: React.FC = () => {
+  const {
+    formData,
+    errors,
+    isValid,
+    areButtonsShown,
+    handleNameChange,
+    handleEmailChange,
+    handlePasswordChange,
+    handleSubmit,
+    handleCancel,
+  } = useProfileForm();
+
   return (
     <div className={s.profileForm}>
-      <Input value={''} placeholder="Имя" onChange={(e) => e.target.value} icon="EditIcon" />
-      <EmailInput value={''} placeholder="E-mail" onChange={(e) => e.target.value} isIcon={true} />
-      <PasswordInput value="******" placeholder="Пароль" onChange={(e) => e.target.value} icon="EditIcon" />
+      <InputField
+        type="text"
+        value={formData.name}
+        placeholder="Имя"
+        onChange={handleNameChange}
+        icon="EditIcon"
+        errorText={errors.name}
+        error={!!errors.name}
+      />
+      <InputField
+        type="email"
+        value={formData.email}
+        placeholder="E-mail"
+        onChange={handleEmailChange}
+        icon="EditIcon"
+        errorText={errors.email}
+        error={!!errors.email}
+      />
+      <InputField
+        type="password"
+        value={formData.password}
+        placeholder="Пароль"
+        onChange={handlePasswordChange}
+        icon="EditIcon"
+        errorText={errors.password}
+        error={!!errors.password}
+      />
+      {areButtonsShown && (
+        <div className={s.profileForm__buttonGroup}>
+          <Button htmlType="submit" disabled={!isValid} onClick={handleSubmit}>
+            Сохранить
+          </Button>
+          <Button htmlType="button" type="secondary" onClick={handleCancel}>
+            Отменить
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

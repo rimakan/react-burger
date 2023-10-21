@@ -20,7 +20,7 @@ const createOrder = createAsyncThunk('reactBurger/burgerConstructor/createOrder'
     ingredients: ingredientsIds,
   };
 
-  return sendRequest('orders', {
+  return sendRequest<Order>('orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
