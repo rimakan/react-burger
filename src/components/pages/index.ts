@@ -6,6 +6,7 @@ import ForgotPasswordPage from './ForgotPasswordPage/ForgotPasswordPage';
 import ProfilePage from './ProfilePage/ProfilePage';
 import OrdersHistoryPage from './OrdersHistoryPage/OrdersHistoryPage';
 import IngredientPage from './IngredientPage/IngredientPage';
+import NotFoundPage from './NotFoundPage/NotFoundPage';
 
 export {
   StellarBurgerMainPage,
@@ -16,4 +17,5 @@ export {
   ProfilePage,
   OrdersHistoryPage,
   IngredientPage,
+  NotFoundPage,
 };

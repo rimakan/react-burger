@@ -10,21 +10,24 @@ import {
   ProfilePage,
   OrdersHistoryPage,
   IngredientPage,
+  NotFoundPage,
 } from '../pages';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../Common/Routes/ProtectedRoute/ProtectedRoute';
 import ProfileForm from '../pages/ProfilePage/ProfileForm/ProfileForm';
 import PrivateRoute from '../Common/Routes/PrivateRoute/PrivateRoute';
+import BurgerIngredientsDetailsModal from '../pages/StellarBurgerMainPage/BurgerIngredientsDetailsModal/BurgerIngredientsDetailsModal';
 
 function App() {
+  const location = useLocation();
+  const backgroundState = location.state?.backgroundLocation;
   return (
     <div className={s.App}>
-      <BrowserRouter>
-        <AppHeader />
-        <Routes>
-          <Route path="/" element={<StellarBurgerMainPage />}>
-            <Route path="/ingredients/:id" element={<IngredientPage />} />
-          </Route>
+      <AppHeader />
+      <PrivateRoute>
+        <Routes location={backgroundState || location}>
+          <Route path="/" element={<StellarBurgerMainPage />} />
+          <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route
             path="/profile"
             element={
@@ -36,17 +39,19 @@ function App() {
             <Route path="/profile" index element={<ProfileForm />} />
             <Route path="/profile/orders" element={<OrdersHistoryPage />} />
           </Route>
-        </Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        <PrivateRoute>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-          </Routes>
-        </PrivateRoute>
-      </BrowserRouter>
+          {backgroundState && (
+            <>
+              <Route path="/ingredients/:id" element={<BurgerIngredientsDetailsModal />} />
+            </>
+          )}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </PrivateRoute>
     </div>
   );
 }

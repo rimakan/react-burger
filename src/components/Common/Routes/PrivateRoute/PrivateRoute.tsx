@@ -7,6 +7,10 @@ const PrivateRoute: React.FC<React.PropsWithChildren> = ({ children }) => {
   const user = useSelector((s) => s.auth.user);
   const token = useSelector((s) => s.auth.refreshToken);
 
+  if (!user) {
+    <Navigate to="/login" />;
+  }
+
   return (user || token) &&
     (pathname === '/login' ||
       pathname === '/register' ||
