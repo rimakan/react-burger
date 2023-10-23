@@ -5,9 +5,13 @@ import OrderDetails from '../../Common/OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from '../../../hooks';
 import { cleanupConstructor, createOrder } from '../../../store/reactBurger/constructorSlice/constructorSlice';
 import { useModal } from '../../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructorButton: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((s) => s.user.user);
+
   const {
     burgerConstructorIngredients,
     isBunPresent,
@@ -16,8 +20,12 @@ const BurgerConstructorButton: React.FC = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const handleClickOpenModal = () => {
-    dispatch(createOrder(burgerConstructorIngredients));
-    openModal();
+    if (user) {
+      dispatch(createOrder(burgerConstructorIngredients));
+      openModal();
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleClickCloseModal = () => {

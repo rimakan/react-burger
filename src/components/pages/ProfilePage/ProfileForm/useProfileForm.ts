@@ -1,7 +1,8 @@
 import { useDispatch, useForm, useSelector } from '../../../../hooks';
-import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { isEmailValid, required } from '../../../utils/validationUtils';
-import { updateUserWithRefresh } from '../../../../store/user/user';
+import { updateUser } from '../../../../store/user/user';
+import { User } from '../../../../models/user';
 
 interface ProfileFormInitialState {
   name: string;
@@ -9,22 +10,23 @@ interface ProfileFormInitialState {
   password: string;
 }
 
-const profileFormInitialState = ({ name, email, password }: ProfileFormInitialState): ProfileFormInitialState => ({
-  name,
-  email,
-  password,
-});
-
 export const useProfileForm = () => {
-  const user = useSelector((s) => s.user.user);
-  const ref = useRef(null);
+  const user: User | undefined = useSelector((s) => s.user.user);
 
   const dispatch = useDispatch();
-  const { formData, errors, isValid, setErrors, setFormData, handleValueChange } = useForm(
-    profileFormInitialState({ name: user?.name || '', email: user?.email || '', password: '******' }),
-  );
+  const { formData, errors, isValid, setErrors, setFormData, handleValueChange } = useForm<ProfileFormInitialState>({
+    name: '',
+    email: '',
+    password: '',
+  });
 
   const [areButtonsShown, setAreButtonsShown] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setFormData({ name: user.name, email: user.email, password: '' });
+    }
+  }, [setFormData, user]);
 
   useEffect(() => {
     setErrors({
@@ -32,7 +34,6 @@ export const useProfileForm = () => {
       email:
         (required(formData.email) ? undefined : 'Поле обязательно к заполнению') ||
         (isEmailValid(formData.email) ? undefined : 'Введите корректный email'),
-      password: required(formData.password) ? undefined : 'Поле обязательно к заполнению',
     });
   }, [formData, setErrors]);
 
@@ -54,25 +55,33 @@ export const useProfileForm = () => {
   const handleSubmit = useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      const payload = {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      };
+      const payload: { [key: string]: string } = {};
 
-      dispatch(updateUserWithRefresh(payload));
+      for (const [key, value] of Object.entries(formData)) {
+        if (user?.[key as keyof User] !== value) {
+          payload[key] = value;
+        }
+
+        if (key === 'password' && value === '') {
+          delete payload[key];
+        }
+      }
+      dispatch(updateUser(payload));
     },
-    [formData, dispatch],
+    [user, formData, dispatch],
   );
 
   const handleCancel = useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      setFormData({
-        name: user?.name || '',
-        email: user?.email || '',
-        password: '******',
-      });
+      if (user) {
+        setFormData({
+          name: user.name,
+          email: user.email,
+          password: '',
+        });
+      }
+
       setAreButtonsShown(false);
     },
     [user, setFormData],
@@ -88,6 +97,5 @@ export const useProfileForm = () => {
     formData,
     errors,
     isValid,
-    ref,
   };
 };

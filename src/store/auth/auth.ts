@@ -2,10 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '../redux';
 import { sendRequest } from '../../components/utils/responseUtils';
 import { AuthResponse, LogoutResponse, TokenRefreshResponse } from '../../models/response';
-import { User } from '../../models/user';
+import { cleanupUser } from '../user/user';
 
 interface AuthSliceInitialState {
-  user?: User;
   accessToken: string | null;
   refreshToken: string | null;
 }
@@ -41,18 +40,21 @@ const login = createAsyncThunk('reactBurger/auth/login', async (payload: LoginPa
   }).then((data) => data);
 });
 
-const refreshAccessToken = createAsyncThunk('reactBurger/auth/refreshAccessToken', async (token: string) => {
-  const body = { token };
-  return sendRequest<TokenRefreshResponse>('auth/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  }).then((data) => data);
+const refreshAccessToken = createAsyncThunk('reactBurger/auth/refreshAccessToken', async () => {
+  const token = localStorage.getItem('refreshToken');
+
+  if (token) {
+    return sendRequest<TokenRefreshResponse>('auth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    }).then((data) => data);
+  }
 });
 
-const logout = createAsyncThunk('reactBurger/auth/logout', async (token: string) => {
+const logout = createAsyncThunk('reactBurger/auth/logout', async (token: string, thunkAPI) => {
   const body = { token };
   sendRequest<LogoutResponse>('auth/logout', {
     method: 'POST',
@@ -61,6 +63,7 @@ const logout = createAsyncThunk('reactBurger/auth/logout', async (token: string)
     },
     body: JSON.stringify(body),
   }).then((data) => data);
+  thunkAPI.dispatch(cleanupUser());
   localStorage.clear();
 });
 
@@ -95,7 +98,6 @@ const resetPassword = createAsyncThunk(
 );
 
 const createInitialState = (): AuthSliceInitialState => ({
-  user: undefined,
   accessToken: localStorage.getItem('accessToken') || '',
   refreshToken: localStorage.getItem('refreshToken') || '',
 });
@@ -119,7 +121,6 @@ const authSlice = createSlice({
       const accessToken = action.payload.accessToken;
       const refreshToken = action.payload.refreshToken;
 
-      state.user = action.payload.user;
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
 
@@ -127,26 +128,26 @@ const authSlice = createSlice({
       localStorage.setItem('refreshToken', refreshToken);
     });
     builder.addCase(login.rejected, (state) => {
-      state.user = undefined;
       state.accessToken = '';
       state.refreshToken = '';
     });
     builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
-      const accessToken = action.payload.accessToken;
-      const refreshToken = action.payload.refreshToken;
+      const accessToken = action.payload?.accessToken;
+      const refreshToken = action.payload?.refreshToken;
 
-      state.accessToken = accessToken;
-      state.refreshToken = refreshToken;
+      if (accessToken && refreshToken) {
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+      }
     });
     builder.addCase(refreshAccessToken.rejected, (state) => {
       state.accessToken = '';
       state.refreshToken = '';
     });
     builder.addCase(logout.fulfilled, (state) => {
-      state.user = undefined;
       state.accessToken = '';
       state.refreshToken = '';
     });

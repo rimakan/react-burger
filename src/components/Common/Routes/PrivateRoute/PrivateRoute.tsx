@@ -4,14 +4,9 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { pathname } = useLocation();
-  const user = useSelector((s) => s.auth.user);
-  const token = useSelector((s) => s.auth.refreshToken);
+  const user = useSelector((s) => s.user.user);
 
-  if (!user) {
-    <Navigate to="/login" />;
-  }
-
-  return (user || token) &&
+  return user &&
     (pathname === '/login' ||
       pathname === '/register' ||
       pathname === '/forgot-password' ||

@@ -5,7 +5,6 @@ interface InputFieldProps {
   type: 'text' | 'email' | 'password';
   value: string;
   placeholder: string;
-  ref?: React.ForwardedRef<HTMLInputElement>;
   icon?: 'EditIcon' | undefined;
   error?: boolean;
   errorText?: string;

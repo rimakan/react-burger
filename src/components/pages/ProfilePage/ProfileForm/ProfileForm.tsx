@@ -1,10 +1,13 @@
 import React from 'react';
 import s from './ProfileForm.module.scss';
-import { InputField } from '../../../uikit';
+import { InputField, Spinner } from '../../../uikit';
 import { useProfileForm } from './useProfileForm';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from '../../../../hooks';
 
 const ProfileForm: React.FC = () => {
+  const isLoading = useSelector((s) => s.user.user);
+
   const {
     formData,
     errors,
@@ -17,7 +20,9 @@ const ProfileForm: React.FC = () => {
     handleCancel,
   } = useProfileForm();
 
-  return (
+  return !isLoading ? (
+    <Spinner />
+  ) : (
     <div className={s.profileForm}>
       <InputField
         type="text"

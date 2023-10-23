@@ -8,10 +8,7 @@ export const apiMiddleware: Middleware<
   StoreState
 > = (storeApi) => (next) => (action) => {
   if (action.type === 'reactBurger/user/getUser/rejected' || action.type === 'reactBurger/auth/rejected') {
-    const token = localStorage.getItem('refreshToken');
-    if (token) {
-      (storeApi.dispatch as AppDispatch)(refreshAccessToken(token));
-    }
+    (storeApi.dispatch as AppDispatch)(refreshAccessToken());
   }
 
   next(action);
