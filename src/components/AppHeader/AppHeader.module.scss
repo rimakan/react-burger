@@ -4,16 +4,22 @@
 
   nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
 
-    div {
+    .menuItemsWrapper {
       display: flex;
+      justify-content: space-between;
       gap: 8px;
     }
 
-    svg {
-      flex: 1;
+    .logo {
+      margin-left: 118px;
+      display: flex;
+      align-items: center;
+    }
+
+    .personalAccount {
+      margin-left: auto;
     }
   }
 }

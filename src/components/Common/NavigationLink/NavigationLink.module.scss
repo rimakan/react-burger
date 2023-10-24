@@ -1,0 +1,17 @@
+.navigationLink {
+  text-decoration: none;
+  color: #8585ad;
+  display: block;
+
+  svg {
+    fill: #8585ad;
+  }
+
+  &_active {
+    color: #fff;
+  
+    svg {
+      fill: #fff;
+    }
+  }
+}

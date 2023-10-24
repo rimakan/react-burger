@@ -1,0 +1,18 @@
+.formWrapper {
+  margin: 0 auto;
+  margin-top: 120px;
+
+  header {
+    margin-bottom: 24px;
+  }
+
+  &__inputBox {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 80px;
+
+    div:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+}

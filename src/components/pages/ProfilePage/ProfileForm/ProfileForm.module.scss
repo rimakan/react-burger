@@ -1,0 +1,12 @@
+.profileForm {
+  div:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  &__buttonGroup {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 30px;
+  }
+}
