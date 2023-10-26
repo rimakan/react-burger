@@ -17,6 +17,7 @@ import ProtectedRoute from '../Common/Routes/ProtectedRoute/ProtectedRoute';
 import ProfileForm from '../pages/ProfilePage/ProfileForm/ProfileForm';
 import PrivateRoute from '../Common/Routes/PrivateRoute/PrivateRoute';
 import BurgerIngredientsDetailsModal from '../pages/StellarBurgerMainPage/BurgerIngredientsDetailsModal/BurgerIngredientsDetailsModal';
+import FeedPage from '../pages/FeedPage/FeedPage';
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function App() {
       <PrivateRoute>
         <Routes location={backgroundState || location}>
           <Route path="/" element={<StellarBurgerMainPage />} />
+          <Route path="/feed" element={<FeedPage />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route
             path="/profile"

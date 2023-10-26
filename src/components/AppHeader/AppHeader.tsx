@@ -17,7 +17,9 @@ const AppHeader: React.FC = () => {
             <AppHeaderItem title="Конструктор" icon={<BurgerIcon type="primary" />} />
           </NavigationLink>
 
-          <AppHeaderItem title="Лента заказов" icon={<ListIcon type="secondary" />} />
+          <NavigationLink to="/feed" isActive={pathname === '/feed'}>
+            <AppHeaderItem title="Лента заказов" icon={<ListIcon type="secondary" />} />
+          </NavigationLink>
         </div>
         <Link to="/" className={s.logo}>
           <Logo />
