@@ -1,12 +1,14 @@
 import React from 'react';
 import s from './OrderCard.module.scss';
-import { Product } from '../../../models/product';
+import { Product } from '../../../../models/product';
 import cn from 'classnames';
 import OrderPrice from '../OrderPrice/OrderPrice';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientPreviewImg from '../IngredientPreviewImg/IngredientPreviewImg';
-import { ingredientIconDict } from '../IngredientPreviewImg/IngredientPreviewImg.constants';
-import { useModifyIngredients } from '../../../hooks/useModifyIngredients';
+import IngredientPreviewImg from '../../IngredientPreviewImg/IngredientPreviewImg';
+import { ingredientIconDict } from '../../IngredientPreviewImg/IngredientPreviewImg.constants';
+import { useModifyIngredients } from '../../../../hooks/useModifyIngredients';
+import OrderTitle from '../OrderTitle/OrderTitle';
+import OrderStatus from '../OrderStatus/OrderStatus';
 
 interface OrderCardProps {
   variant?: 'primary' | 'secondary';
@@ -43,8 +45,8 @@ const OrderCard: React.FC<OrderCardProps> = ({
         <FormattedDate date={date} className="text text_type_main-default text_color_inactive" />
       </header>
       <div className={s.orderCard__subHeader}>
-        <h3 className="text text_type_main-medium">{orderTitle}</h3>
-        {variant === 'primary' && <p className="text text_type_main-medium">{orderStatus}</p>}
+        <OrderTitle>{orderTitle}</OrderTitle>
+        {variant === 'primary' && <OrderStatus status={orderStatus} />}
       </div>
 
       <div className={s.orderCard__details}>

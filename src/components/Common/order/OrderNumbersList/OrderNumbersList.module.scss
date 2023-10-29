@@ -1,0 +1,19 @@
+.orderNumbersList {
+  width: 240px;
+  text-align: start;
+
+  h3 {
+    margin-bottom: 24px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

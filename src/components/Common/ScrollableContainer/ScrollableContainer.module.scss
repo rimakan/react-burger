@@ -1,0 +1,7 @@
+.scrollableContainer {
+  overflow-y: auto;
+
+  &_primary {
+    max-height: 700px;
+  }
+}

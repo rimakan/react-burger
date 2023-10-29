@@ -3,6 +3,7 @@ import s from './Ingredients.module.scss';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProductType } from '../../../../models/product';
 import BurgerIngredientsList from '../BurgerIngredientsList/BurgerIngredientsList';
+import ScrollableContainer from '../../../Common/ScrollableContainer/ScrollableContainer';
 
 const ingredientTabDict: { [key: string]: string } = {
   [ProductType.Bun]: 'Булки',
@@ -64,7 +65,7 @@ const Ingredients: React.FC = () => {
         </Tab>
       </div>
 
-      <div className={`${s.ingredients__content} custom-scroll`} onScroll={scrollHandler}>
+      <ScrollableContainer variant="primary" onScroll={scrollHandler}>
         <BurgerIngredientsList
           id={ProductType.Bun}
           header={ingredientTabDict[ProductType.Bun]}
@@ -83,7 +84,7 @@ const Ingredients: React.FC = () => {
           type={ProductType.Main}
           ref={(el) => (ref.current[2] = el)}
         />
-      </div>
+      </ScrollableContainer>
     </section>
   );
 };

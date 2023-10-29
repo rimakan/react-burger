@@ -1,25 +1,16 @@
 import React from 'react';
-import OrderCard from '../../Common/OrderCard/OrderCard';
-import { useSelector } from '../../../hooks';
-import { useRequestStellarBurgerMainPage } from '../StellarBurgerMainPage/useRequestStellarBurgerMainPage';
+import s from './FeedPage.module.scss';
+import OrdersList from '../../Common/order/OrdersList/OrdersList';
+import PageSection from '../../Common/PageSection/PageSection';
+import OrdersStats from './OrdersStats/OrdersStats';
 
-const date = '2022-10-10T17:33:32.877Z';
-
-const FeedPage = () => {
-  const ingredients = useSelector(({ reactBurger }) => reactBurger.burgerIngredients.ingredients);
-  useRequestStellarBurgerMainPage();
-
+const FeedPage: React.FC = () => {
   return (
-    <div>
-      <OrderCard
-        orderTitle="test"
-        orderStatus="Создан"
-        orderIngredients={ingredients}
-        orderNumber="123"
-        orderPrice={500}
-        date={new Date(date)}
-        onClick={() => console.info('click')}
-      />
+    <div className={s.feedPage}>
+      <PageSection header="Лента заказов">
+        <OrdersList orderCardVariant="secondary" />
+      </PageSection>
+      <OrdersStats />
     </div>
   );
 };

@@ -5,3 +5,9 @@ export interface Order {
   };
   success: boolean;
 }
+
+export enum OrderStatusType {
+  Created = 'Создан',
+  InProgress = 'Готовится',
+  Ready = 'Выполнен',
+}

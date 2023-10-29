@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './BurgerConstructorFooter.module.scss';
 import BurgerConstructorButton from '../BurgerConstructorButton/BurgerConstructorButton';
-import OrderPrice from '../../Common/OrderPrice/OrderPrice';
+import OrderPrice from '../../Common/order/OrderPrice/OrderPrice';
 
 interface BurgerConstructorFooterProps {
   orderSum: number;
