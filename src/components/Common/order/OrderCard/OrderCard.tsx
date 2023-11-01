@@ -9,6 +9,7 @@ import { ingredientIconDict } from '../../IngredientPreviewImg/IngredientPreview
 import { useModifyIngredients } from '../../../../hooks/useModifyIngredients';
 import OrderTitle from '../OrderTitle/OrderTitle';
 import OrderStatus from '../OrderStatus/OrderStatus';
+import { Link, useLocation } from 'react-router-dom';
 
 interface OrderCardProps {
   variant?: 'primary' | 'secondary';
@@ -38,10 +39,14 @@ const OrderCard: React.FC<OrderCardProps> = ({
 
   const { newIngredients, restIngredientsLength } = useModifyIngredients(orderIngredients);
 
+  const { pathname } = useLocation();
+
   return (
     <div className={classNames} onClick={onClick}>
       <header>
-        <p className="text text_type_main-default">{orderNumber}</p>
+        <Link to={`${pathname}/${orderNumber}`} className="text-link text text_type_main-default">
+          {orderNumber}
+        </Link>
         <FormattedDate date={date} className="text text_type_main-default text_color_inactive" />
       </header>
       <div className={s.orderCard__subHeader}>

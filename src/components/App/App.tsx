@@ -18,6 +18,7 @@ import ProfileForm from '../pages/ProfilePage/ProfileForm/ProfileForm';
 import PrivateRoute from '../Common/Routes/PrivateRoute/PrivateRoute';
 import BurgerIngredientsDetailsModal from '../pages/StellarBurgerMainPage/BurgerIngredientsDetailsModal/BurgerIngredientsDetailsModal';
 import FeedPage from '../pages/FeedPage/FeedPage';
+import ExtendedOrderDetails from '../Common/order/ExtendedOrderDetails/ExtendedOrderDetails';
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
         <Routes location={backgroundState || location}>
           <Route path="/" element={<StellarBurgerMainPage />} />
           <Route path="/feed" element={<FeedPage />} />
+          <Route path="/feed/:orderId" element={<ExtendedOrderDetails />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route
             path="/profile"
@@ -41,6 +43,7 @@ function App() {
             <Route path="/profile" index element={<ProfileForm />} />
             <Route path="/profile/orders" element={<OrdersHistoryPage />} />
           </Route>
+          <Route path="/profile/orders/:orderId" element={<ExtendedOrderDetails />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />

@@ -5,7 +5,6 @@ import { getBurgerIngredients } from '../../../../store/reactBurger/ingredientsS
 export const useRequestOrders = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    // TO_DO: call the orders method
     dispatch(getBurgerIngredients());
   }, [dispatch]);
 };

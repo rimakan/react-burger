@@ -9,7 +9,7 @@ interface OrderPriceProps {
 const OrderPrice: React.FC<OrderPriceProps> = ({ orderSum }) => {
   return (
     <div className={s.orderPrice}>
-      <p className="text text_type_main-medium">{orderSum}</p>
+      <p className="text text_type_digits-default">{orderSum}</p>
       <CurrencyIcon type="primary" />
     </div>
   );

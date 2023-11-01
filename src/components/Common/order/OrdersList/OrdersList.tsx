@@ -37,26 +37,6 @@ const OrdersList: React.FC<OrderListProps> = ({ orderCardVariant = 'primary' }) 
       <OrderCard
         variant={orderCardVariant}
         orderTitle="test"
-        orderStatus="Готовится"
-        orderIngredients={ingredients}
-        orderNumber="123"
-        orderPrice={500}
-        date={new Date('2022-10-10T17:33:32.877Z')}
-        onClick={() => console.info('click')}
-      />
-      <OrderCard
-        variant={orderCardVariant}
-        orderTitle="test"
-        orderStatus="Создан"
-        orderIngredients={ingredients}
-        orderNumber="123"
-        orderPrice={500}
-        date={new Date('2022-10-10T17:33:32.877Z')}
-        onClick={() => console.info('click')}
-      />
-      <OrderCard
-        variant={orderCardVariant}
-        orderTitle="test"
         orderStatus="Создан"
         orderIngredients={ingredients}
         orderNumber="123"

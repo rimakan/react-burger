@@ -1,7 +1,7 @@
 import { Middleware } from 'redux';
-import { refreshAccessToken } from './auth/auth';
-import { AppDispatch, StoreState } from './store';
-import { getUser } from './user/user';
+import { refreshAccessToken } from '../auth/auth';
+import { AppDispatch, StoreState } from '../store';
+import { getUser } from '../user/user';
 
 export const apiMiddleware: Middleware<
   // eslint-disable-next-line @typescript-eslint/ban-types
