@@ -15,7 +15,7 @@ const ExtendedOrderDetails: React.FC = () => {
       </header>
       <div className={s.extendedOrderDetails__subHeader}>
         <OrderTitle>Test</OrderTitle>
-        <OrderStatus status={OrderStatusType.Ready} className="text text_type_main-small" />
+        <OrderStatus status={OrderStatusType.Done} className="text text_type_main-small" />
       </div>
       <div className={s.extendedOrderDetails__ingredients}>
         <h3 className="text_type_main-medium">Состав:</h3>

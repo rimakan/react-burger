@@ -8,6 +8,6 @@ export interface Order {
 
 export enum OrderStatusType {
   Created = 'Создан',
-  InProgress = 'Готовится',
-  Ready = 'Выполнен',
+  Pending = 'Готовится',
+  Done = 'Выполнен',
 }

@@ -3,10 +3,15 @@ import { createAsyncThunk } from '../redux';
 import { fetchWithRefresh } from '../../components/utils/responseUtils';
 import { UserResponse } from '../../models/response';
 import { User } from '../../models/user';
+import { ExtendedOrder } from '../../models/backendEvents';
+import { wsActions } from '../middlewares/wsMiddleware.constants';
 
 interface UserInitialState {
   isLoading: boolean;
   user?: User;
+  relatedData: {
+    personalOrders: ExtendedOrder[];
+  };
 }
 
 const getUser = createAsyncThunk('reactBurger/user/getUser', async (_, thunkAPI) => {
@@ -47,6 +52,9 @@ const updateUser = createAsyncThunk('reactBurger/user/updateUser', async (payloa
 const createInitialState = (): UserInitialState => ({
   user: undefined,
   isLoading: false,
+  relatedData: {
+    personalOrders: [],
+  },
 });
 
 const userSlice = createSlice({
@@ -72,6 +80,9 @@ const userSlice = createSlice({
     });
     builder.addCase(updateUser.rejected, (state) => {
       state.user = undefined;
+    });
+    builder.addCase(wsActions.getPersonalOrders, (state, action) => {
+      state.relatedData.personalOrders = action.payload.orders.sort((a, b) => b.number - a.number);
     });
   },
 });

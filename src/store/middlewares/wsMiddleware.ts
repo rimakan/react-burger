@@ -4,11 +4,12 @@ import { authenticate, login, logout } from '../auth/auth';
 import { StoreState } from '../store';
 import { WsClient } from '../../api/WsClient';
 import { getEventMessage, prepareWsAction } from '../../components/utils/wsUtils';
+import { WS_URL } from '../../constants/constants';
 
 const accessToken = localStorage.getItem('accessToken')?.slice(7);
 
-const wsClientFirst = new WsClient('wss://norma.nomoreparties.space/orders/all');
-const wsClientSecond = new WsClient(`wss://norma.nomoreparties.space/orders?token=${accessToken}`);
+const wsClientFirst = new WsClient(`${WS_URL}/all`);
+const wsClientSecond = new WsClient(`${WS_URL}?token=${accessToken}`);
 
 export const wsMiddleware: Middleware<object, StoreState> = (storeApi) => {
   wsClientFirst.onMessage = (event: MessageEvent<string>) => {

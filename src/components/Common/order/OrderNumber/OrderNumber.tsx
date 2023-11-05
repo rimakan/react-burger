@@ -10,8 +10,8 @@ interface OrderNumberProps {
 
 const OrderNumber: React.FC<OrderNumberProps> = ({ orderNumber, status }) => {
   const classNames = cn(s.orderNumber, 'text text_type_digits-default', {
-    [s.orderNumber_inProgress]: status === OrderStatusType.InProgress,
-    [s.orderNumber_done]: status === OrderStatusType.Ready,
+    [s.orderNumber_inProgress]: status === OrderStatusType.Pending,
+    [s.orderNumber_done]: status === OrderStatusType.Done,
   });
   return <p className={classNames}>{orderNumber}</p>;
 };

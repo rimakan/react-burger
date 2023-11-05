@@ -1,6 +1,7 @@
 export interface ExtendedOrder {
   _id: string;
   name: string;
+  number: number;
   status: string;
   ingredients: string[];
   createdAt: string;

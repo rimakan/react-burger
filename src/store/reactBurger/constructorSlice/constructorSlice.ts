@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Product, ProductType } from '../../../models/product';
 import { Order } from '../../../models/order';
 import { createAsyncThunk } from '../../redux';
-import { sendRequest } from '../../../components/utils/responseUtils';
+import { fetchWithRefresh } from '../../../components/utils/responseUtils';
 
 interface ConstructorSliceInitialState {
   burgerConstructorIngredients: Product[];
   isBunPresent: boolean;
   orderPrice: number;
   relatedData: {
-    order: Order | null;
+    order?: Order;
     replacedProduct: Product | null;
   };
 }
@@ -20,13 +20,19 @@ const createOrder = createAsyncThunk('reactBurger/burgerConstructor/createOrder'
     ingredients: ingredientsIds,
   };
 
-  return sendRequest<Order>('orders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  }).then((data) => data);
+  const accessToken = localStorage.getItem('accessToken');
+
+  if (accessToken) {
+    return fetchWithRefresh<Order>('orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // prettier-ignore
+        'Authorization': accessToken,
+      },
+      body: JSON.stringify(body),
+    }).then((data) => data);
+  }
 });
 
 const createInitialState = (): ConstructorSliceInitialState => ({
@@ -34,7 +40,7 @@ const createInitialState = (): ConstructorSliceInitialState => ({
   isBunPresent: false,
   orderPrice: 0,
   relatedData: {
-    order: null,
+    order: undefined,
     replacedProduct: null,
   },
 });
@@ -50,12 +56,15 @@ const burgerConstructorSlice = createSlice({
       if (action.payload.type === ProductType.Bun) {
         if (state.burgerConstructorIngredients[0]?.type === ProductType.Bun) {
           state.burgerConstructorIngredients.splice(0, 1, action.payload);
+          state.burgerConstructorIngredients.pop();
+          state.burgerConstructorIngredients.push(action.payload);
         } else {
           state.burgerConstructorIngredients.unshift(action.payload);
+          state.burgerConstructorIngredients.push(action.payload);
         }
         state.isBunPresent = true;
       } else {
-        state.burgerConstructorIngredients.push(action.payload);
+        state.burgerConstructorIngredients.splice(1, 0, action.payload);
       }
     },
     removeIngredientFromConstructor(state, action) {
@@ -87,7 +96,7 @@ const burgerConstructorSlice = createSlice({
       state.relatedData.order = action.payload;
     });
     builder.addCase(createOrder.rejected, (state) => {
-      state.relatedData.order = null;
+      state.relatedData.order = undefined;
     });
   },
 });
