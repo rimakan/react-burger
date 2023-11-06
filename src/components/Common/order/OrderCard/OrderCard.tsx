@@ -5,7 +5,7 @@ import OrderPrice from '../OrderPrice/OrderPrice';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientPreviewImg from '../../IngredientPreviewImg/IngredientPreviewImg';
 import { ingredientIconDict } from '../../IngredientPreviewImg/IngredientPreviewImg.constants';
-import { useOrderCardData } from '../../../../hooks/useOrderCardData';
+import { useOrderData } from '../../../../hooks';
 import OrderTitle from '../OrderTitle/OrderTitle';
 import OrderStatus from '../OrderStatus/OrderStatus';
 import { Link, useLocation } from 'react-router-dom';
@@ -41,7 +41,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
     [s.orderCard_secondary]: variant === 'secondary',
   });
 
-  const { newIngredients, restIngredientsLength, price } = useOrderCardData(orderIngredients);
+  const { newIngredients, restIngredientsLength, price } = useOrderData(orderIngredients);
 
   const { pathname } = useLocation();
 
