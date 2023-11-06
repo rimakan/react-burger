@@ -11,3 +11,9 @@ export enum OrderStatusType {
   Pending = 'Готовится',
   Done = 'Выполнен',
 }
+
+export enum OrderState {
+  Created = 'created',
+  Pending = 'pending',
+  Done = 'done',
+}

@@ -10,7 +10,7 @@ interface UserInitialState {
   isLoading: boolean;
   user?: User;
   relatedData: {
-    personalOrders: ExtendedOrder[];
+    personalOrders?: ExtendedOrder[];
   };
 }
 
@@ -82,7 +82,7 @@ const userSlice = createSlice({
       state.user = undefined;
     });
     builder.addCase(wsActions.getPersonalOrders, (state, action) => {
-      state.relatedData.personalOrders = action.payload.orders.sort((a, b) => b.number - a.number);
+      state.relatedData.personalOrders = action.payload?.orders.sort((a, b) => b.number - a.number);
     });
   },
 });

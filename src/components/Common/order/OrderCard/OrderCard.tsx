@@ -63,7 +63,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
           {newIngredients?.map((ingredient) => (
             <IngredientPreviewImg src={ingredientIconDict[ingredient]} alt="ingredient" key={uuid()} />
           ))}
-          {orderIngredients.length >= 6 && <p className="text text_type_main-default">+{restIngredientsLength}</p>}
+          {restIngredientsLength > 1 && <p className="text text_type_main-default">+{restIngredientsLength}</p>}
         </div>
         <OrderPrice orderSum={price} />
       </div>

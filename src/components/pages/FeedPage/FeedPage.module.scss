@@ -4,4 +4,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 60px;
+
+  .spinner {
+    display: block;
+    margin-top: 200px;
+  }
 }

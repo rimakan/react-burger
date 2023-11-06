@@ -3,7 +3,7 @@ import s from './OrderQuantity.module.scss';
 
 interface OrderQuantityProps {
   header: string;
-  orderQty: string;
+  orderQty: number;
 }
 
 const OrderQuantity: React.FC<OrderQuantityProps> = ({ header, orderQty }) => {

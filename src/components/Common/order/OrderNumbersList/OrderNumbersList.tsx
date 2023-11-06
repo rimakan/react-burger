@@ -4,19 +4,19 @@ import OrderNumber from '../OrderNumber/OrderNumber';
 
 interface OrderNumbersListProps {
   header: string;
-  orderNumbers: {
-    id: number;
+  orders: {
+    id: string;
     status: string;
-    orderNumber: string;
+    orderNumber: number;
   }[];
 }
 
-const OrderNumbersList: React.FC<OrderNumbersListProps> = ({ header, orderNumbers }) => {
+const OrderNumbersList: React.FC<OrderNumbersListProps> = ({ header, orders }) => {
   return (
     <div className={s.orderNumbersList}>
       <h3 className="text text_type_main-medium">{header}</h3>
-      <ul>
-        {orderNumbers.map(({ id, status, orderNumber }) => {
+      <ul className="custom-scroll">
+        {orders.map(({ id, status, orderNumber }) => {
           return (
             <li key={id}>
               <OrderNumber status={status} orderNumber={orderNumber} />

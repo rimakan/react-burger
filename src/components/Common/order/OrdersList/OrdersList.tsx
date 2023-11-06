@@ -5,7 +5,7 @@ import { ExtendedOrder } from '../../../../models/backendEvents';
 
 interface OrderListProps {
   orderCardVariant?: 'primary' | 'secondary';
-  orders?: ExtendedOrder[];
+  orders: ExtendedOrder[];
 }
 
 const OrdersList: React.FC<OrderListProps> = ({ orderCardVariant = 'primary', orders }) => {

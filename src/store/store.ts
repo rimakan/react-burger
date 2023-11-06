@@ -5,6 +5,7 @@ import burgerIngredientsActionsSlice from './reactBurger/ingredientsSlice/ingred
 import burgerConstructorSlice from './reactBurger/constructorSlice/constructorSlice';
 import authSlice from './auth/auth';
 import userSlice from './user/user';
+import orderFeedSlice from './reactBurger/orderFeedSlice/orderFeedSlice';
 import { apiMiddleware } from './middlewares/apiMiddleware';
 import { wsMiddleware } from './middlewares/wsMiddleware';
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     burgerIngredients: burgerIngredientsSlice,
     burgerIngredientsActions: burgerIngredientsActionsSlice,
     burgerConstructor: burgerConstructorSlice,
+    orderFeed: orderFeedSlice,
   }),
 });
 

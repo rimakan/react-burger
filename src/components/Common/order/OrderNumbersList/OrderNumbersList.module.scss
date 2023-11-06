@@ -9,6 +9,9 @@
   ul {
     list-style: none;
     padding: 0;
+    columns: 5;
+    column-gap: 100px;
+    overflow-x: auto;
 
     li {
       &:not(:last-child) {
