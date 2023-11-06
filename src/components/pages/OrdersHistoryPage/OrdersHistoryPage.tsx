@@ -6,9 +6,10 @@ import { Spinner } from '../../uikit';
 
 const OrdersHistoryPage: React.FC = () => {
   const orders = useSelector((s) => s.user.relatedData.personalOrders);
+
   return (
     <div className={s.ordersHistoryPage}>
-      {orders?.length === 0 && (
+      {!orders?.length && (
         <span className={s.spinner}>
           <Spinner />
         </span>
