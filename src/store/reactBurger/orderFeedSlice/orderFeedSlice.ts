@@ -1,4 +1,4 @@
-import { ExtendedOrder } from '../../../models/backendEvents';
+import { ExtendedOrder } from '../../../models/order';
 import { createSlice } from '@reduxjs/toolkit';
 import { wsActions } from '../../middlewares/wsMiddleware.constants';
 

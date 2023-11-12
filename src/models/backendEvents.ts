@@ -1,12 +1,4 @@
-export interface ExtendedOrder {
-  _id: string;
-  name: string;
-  number: number;
-  status: string;
-  ingredients: string[];
-  createdAt: string;
-  updatedAt: string;
-}
+import { ExtendedOrder } from './order';
 
 export interface OrderEvent {
   eventTitle: string;

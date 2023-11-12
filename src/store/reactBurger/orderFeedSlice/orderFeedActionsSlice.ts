@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ExtendedOrder } from '../../../models/backendEvents';
+import { ExtendedOrder } from '../../../models/order';
 
 interface OrderFeedActionsSliceInitialState {
   order?: ExtendedOrder;

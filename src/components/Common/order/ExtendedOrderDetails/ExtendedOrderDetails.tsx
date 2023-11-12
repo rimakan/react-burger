@@ -7,7 +7,7 @@ import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-component
 import OrderPrice from '../OrderPrice/OrderPrice';
 import { Spinner } from '../../../uikit';
 import { useOrderData } from '../../../../hooks';
-import { ExtendedOrder } from '../../../../models/backendEvents';
+import { ExtendedOrder } from '../../../../models/order';
 import cn from 'classnames';
 
 const orderStatusDict: { [key: string]: string } = {

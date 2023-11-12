@@ -1,7 +1,7 @@
 import React from 'react';
 import OrderCard from '../OrderCard/OrderCard';
 import ScrollableContainer from '../../ScrollableContainer/ScrollableContainer';
-import { ExtendedOrder } from '../../../../models/backendEvents';
+import { ExtendedOrder } from '../../../../models/order';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../../../hooks';
 import { openOrderDialog } from '../../../../store/reactBurger/orderFeedSlice/orderFeedActionsSlice';

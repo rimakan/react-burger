@@ -3,7 +3,7 @@ import { createAsyncThunk } from '../redux';
 import { fetchWithRefresh } from '../../components/utils/responseUtils';
 import { UserResponse } from '../../models/response';
 import { User } from '../../models/user';
-import { ExtendedOrder } from '../../models/backendEvents';
+import { ExtendedOrder } from '../../models/order';
 import { wsActions } from '../middlewares/wsMiddleware.constants';
 
 interface UserInitialState {
