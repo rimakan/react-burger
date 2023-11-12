@@ -2,6 +2,9 @@ import React from 'react';
 import OrderCard from '../OrderCard/OrderCard';
 import ScrollableContainer from '../../ScrollableContainer/ScrollableContainer';
 import { ExtendedOrder } from '../../../../models/backendEvents';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from '../../../../hooks';
+import { openOrderDialog } from '../../../../store/reactBurger/orderFeedSlice/orderFeedActionsSlice';
 
 interface OrderListProps {
   orderCardVariant?: 'primary' | 'secondary';
@@ -9,9 +12,20 @@ interface OrderListProps {
 }
 
 const OrdersList: React.FC<OrderListProps> = ({ orderCardVariant = 'primary', orders }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
+  const clickHandler = (order: ExtendedOrder) => {
+    dispatch(openOrderDialog(order));
+    navigate(`${pathname}/${order.number}`);
+  };
+
   return (
     <ScrollableContainer variant="primary">
-      {orders?.map(({ _id, name, number, status, ingredients, createdAt }) => {
+      {orders?.map((order) => {
+        const { _id, name, number, status, ingredients, createdAt } = order;
         return (
           <OrderCard
             key={_id}
@@ -21,7 +35,7 @@ const OrdersList: React.FC<OrderListProps> = ({ orderCardVariant = 'primary', or
             orderIngredients={ingredients}
             orderNumber={number}
             date={new Date(createdAt)}
-            onClick={() => console.info('click')}
+            onClick={() => clickHandler(order)}
           />
         );
       })}

@@ -5,10 +5,10 @@ import OrderStatus from '../OrderStatus/OrderStatus';
 import ScrollableContainer from '../../ScrollableContainer/ScrollableContainer';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderPrice from '../OrderPrice/OrderPrice';
-import { useParams } from 'react-router-dom';
-import { useSelector } from '../../../../hooks';
 import { Spinner } from '../../../uikit';
 import { useOrderData } from '../../../../hooks';
+import { ExtendedOrder } from '../../../../models/backendEvents';
+import cn from 'classnames';
 
 const orderStatusDict: { [key: string]: string } = {
   created: 'Создан',
@@ -16,23 +16,24 @@ const orderStatusDict: { [key: string]: string } = {
   done: 'Выполнен',
 };
 
-const ExtendedOrderDetails: React.FC = () => {
-  const { orderId: orderIdFromUrl } = useParams();
-  const orderId = Number(orderIdFromUrl);
-  const order = useSelector(
-    (s) =>
-      s.reactBurger.orderFeed.publicOrders?.find((order) => order.number === orderId) ||
-      s.user.relatedData.personalOrders?.find((order) => order.number === orderId),
-  );
+interface ExtendedOrderDetailsProps {
+  order?: ExtendedOrder;
+  isModal?: boolean;
+}
+
+const ExtendedOrderDetails: React.FC<ExtendedOrderDetailsProps> = ({ order, isModal }) => {
   const { price, countedIngredientsWithPrice } = useOrderData(order?.ingredients);
+  const classNames = cn(s.extendedOrderDetails, {
+    [s.extendedOrderDetails_modal]: isModal,
+  });
 
   return (
-    <div className={s.extendedOrderDetails}>
+    <div className={classNames}>
       {!order && <Spinner />}
       {order && (
         <>
           <header>
-            <h2 className="text text_type_digits-default">#{orderId}</h2>
+            <h2 className="text text_type_digits-default">#{order.number}</h2>
           </header>
           <div className={s.extendedOrderDetails__subHeader}>
             <OrderTitle>{order.name}</OrderTitle>
@@ -40,15 +41,16 @@ const ExtendedOrderDetails: React.FC = () => {
           </div>
           <div className={s.extendedOrderDetails__ingredients}>
             <h3 className="text_type_main-medium">Состав:</h3>
-            <ScrollableContainer variant="secondary">
+            <ScrollableContainer variant={isModal ? 'tertiary' : 'secondary'}>
               {countedIngredientsWithPrice.map(({ id, title, price, qty, image }) => (
-                <div key={id} className={s.extendedOrderDetails__ingredients__item}>
+                <div key={id} className={s.extendedOrderDetails__ingredientsItem}>
                   <div className={s.previewBox}>
                     <img src={image} alt={title} />
                     <p className="text text_type_main-default">{title}</p>
                   </div>
                   <div className={s.priceBox}>
-                    <p className="text text_type_digits-default">{qty} x</p>
+                    <p className="text text_type_digits-default">{qty}</p>
+                    <span className="text text_type_digits-default">x</span>
                     <OrderPrice orderSum={price} />
                   </div>
                 </div>

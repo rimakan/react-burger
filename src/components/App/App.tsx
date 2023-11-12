@@ -18,11 +18,13 @@ import ProfileForm from '../pages/ProfilePage/ProfileForm/ProfileForm';
 import PrivateRoute from '../Common/Routes/PrivateRoute/PrivateRoute';
 import BurgerIngredientsDetailsModal from '../pages/StellarBurgerMainPage/BurgerIngredientsDetailsModal/BurgerIngredientsDetailsModal';
 import FeedPage from '../pages/FeedPage/FeedPage';
-import ExtendedOrderDetails from '../Common/order/ExtendedOrderDetails/ExtendedOrderDetails';
+import ExtendedOrderDialog from '../Common/order/ExtendedOrderDialog/ExtendedOrderDialog';
+import ExtendedOrderDetailsPage from '../pages/ExtendedOrderDetailsPage/ExtendedOrderDetailsPage';
 
 function App() {
   const location = useLocation();
-  const backgroundState = location.state?.backgroundLocation;
+  const backgroundState = location.state && location.state?.backgroundLocation;
+
   return (
     <div className={s.App}>
       <AppHeader />
@@ -30,7 +32,7 @@ function App() {
         <Routes location={backgroundState || location}>
           <Route path="/" element={<StellarBurgerMainPage />} />
           <Route path="/feed" element={<FeedPage />} />
-          <Route path="/feed/:orderId" element={<ExtendedOrderDetails />} />
+          <Route path="/feed/:orderId" element={<ExtendedOrderDetailsPage />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route
             path="/profile"
@@ -43,7 +45,7 @@ function App() {
             <Route path="/profile" index element={<ProfileForm />} />
             <Route path="/profile/orders" element={<OrdersHistoryPage />} />
           </Route>
-          <Route path="/profile/orders/:orderId" element={<ExtendedOrderDetails />} />
+          <Route path="/profile/orders/:orderId" element={<ExtendedOrderDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -59,6 +61,8 @@ function App() {
           {backgroundState && (
             <>
               <Route path="/ingredients/:id" element={<BurgerIngredientsDetailsModal />} />
+              <Route path="/feed/:orderId" element={<ExtendedOrderDialog />} />
+              <Route path="/profile/orders/:orderId" element={<ExtendedOrderDialog />} />
             </>
           )}
           <Route path="*" element={<NotFoundPage />} />
