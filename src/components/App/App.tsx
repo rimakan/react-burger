@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './App.module.scss';
 import AppHeader from '../AppHeader/AppHeader';
 import {
@@ -12,7 +12,7 @@ import {
   IngredientPage,
   NotFoundPage,
 } from '../pages';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRoute from '../Common/Routes/ProtectedRoute/ProtectedRoute';
 import ProfileForm from '../pages/ProfilePage/ProfileForm/ProfileForm';
 import PrivateRoute from '../Common/Routes/PrivateRoute/PrivateRoute';
@@ -23,7 +23,13 @@ import ExtendedOrderDetailsPage from '../pages/ExtendedOrderDetailsPage/Extended
 
 function App() {
   const location = useLocation();
-  const backgroundState = location.state && location.state?.backgroundLocation;
+  const backgroundState = location.state && location.state.backgroundLocation;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(location);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={s.App}>

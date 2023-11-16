@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ExtendedOrder } from '../../../models/order';
+import { wsActions } from '../../middlewares/wsMiddleware.constants';
 
 interface OrderFeedActionsSliceInitialState {
   order?: ExtendedOrder;
@@ -19,6 +20,11 @@ const orderFeedActionsSlice = createSlice({
     closeOrderDialog() {
       return createInitialState();
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(wsActions.getAllOrders, (state, action) => {
+      state.order = action.payload.orders.find((order) => order._id === state.order?._id);
+    });
   },
 });
 

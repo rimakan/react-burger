@@ -5,6 +5,7 @@ import PageSection from '../../Common/PageSection/PageSection';
 import OrdersStats from './OrdersStats/OrdersStats';
 import { useSelector } from '../../../hooks';
 import { Spinner } from '../../uikit';
+import ExtendedOrderDialog from '../../Common/order/ExtendedOrderDialog/ExtendedOrderDialog';
 
 const FeedPage: React.FC = () => {
   const orders = useSelector(({ reactBurger }) => reactBurger.orderFeed.publicOrders);
@@ -20,6 +21,7 @@ const FeedPage: React.FC = () => {
         {orders && <OrdersList orderCardVariant="secondary" orders={orders} />}
       </PageSection>
       <OrdersStats />
+      <ExtendedOrderDialog />
     </div>
   );
 };

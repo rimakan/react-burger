@@ -16,10 +16,11 @@ const OrdersList: React.FC<OrderListProps> = ({ orderCardVariant = 'primary', or
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
+  const location = useLocation();
 
   const clickHandler = (order: ExtendedOrder) => {
     dispatch(openOrderDialog(order));
-    navigate(`${pathname}/${order.number}`);
+    navigate(`${pathname}/${order.number}`, { state: { backgroundLocation: location } });
   };
 
   return (
