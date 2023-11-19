@@ -32,9 +32,12 @@ const ExtendedOrderDetails: React.FC<ExtendedOrderDetailsProps> = ({ order, isMo
       {!order && <Spinner />}
       {order && (
         <>
-          <header>
-            <h2 className="text text_type_digits-default">#{order.number}</h2>
-          </header>
+          {!isModal && (
+            <header>
+              <h2 className="text text_type_digits-default">#{order.number}</h2>
+            </header>
+          )}
+
           <div className={s.extendedOrderDetails__subHeader}>
             <OrderTitle>{order.name}</OrderTitle>
             <OrderStatus status={orderStatusDict[order.status]} className="text text_type_main-small" />

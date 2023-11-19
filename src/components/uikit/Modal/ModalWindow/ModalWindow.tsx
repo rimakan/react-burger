@@ -8,7 +8,7 @@ const ModalWindow: React.FC<ModalProps> = ({ onClick, children, heading }) => {
     <div className={s.modal}>
       <div className={s.wrapper}>
         <header>
-          <h2 className="text text_type_main-large">{heading ?? ''}</h2>
+          {heading}
           <CloseIcon type="primary" onClick={onClick} />
         </header>
         <div className={s.content}>{children}</div>

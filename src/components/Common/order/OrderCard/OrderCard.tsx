@@ -56,9 +56,14 @@ const OrderCard: React.FC<OrderCardProps> = ({
       <div className={s.orderCard__details}>
         <div className={s.orderCard__ingredients}>
           {newIngredients?.map((ingredient) => (
-            <IngredientPreviewImg src={ingredientIconDict[ingredient]} alt="ingredient" key={uuid()} />
+            <IngredientPreviewImg
+              src={ingredientIconDict[ingredient]}
+              alt="ingredient"
+              key={uuid()}
+              isLastItem={ingredient === newIngredients.at(-1) && restIngredientsLength > 0}
+            />
           ))}
-          {restIngredientsLength > 1 && <p className="text text_type_main-default">+{restIngredientsLength}</p>}
+          {restIngredientsLength > 0 && <p className="text text_type_main-default">+{restIngredientsLength}</p>}
         </div>
         <OrderPrice orderSum={price} />
       </div>

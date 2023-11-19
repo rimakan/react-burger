@@ -22,7 +22,7 @@ const BurgerIngredientsDetailsModal: React.FC = () => {
   return (
     <>
       {product && (
-        <Modal onClick={clickHandler} heading="Детали ингредиента">
+        <Modal onClick={clickHandler} heading={<h2 className="text text_type_main-large">Детали ингредиента</h2>}>
           <IngredientDetails product={product} />
         </Modal>
       )}
