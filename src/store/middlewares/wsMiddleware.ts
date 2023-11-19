@@ -1,5 +1,6 @@
 /* eslint-disable spellcheck/spell-checker */
 import { Middleware, Action } from 'redux';
+import { authenticate, login, logout } from '../auth/auth';
 import { StoreState } from '../store';
 import { WsClient } from '../../api/WsClient';
 import { getEventMessage, prepareWsAction } from '../../components/utils/wsUtils';
@@ -7,8 +8,8 @@ import { WS_URL } from '../../constants/constants';
 
 const accessToken = localStorage.getItem('accessToken')?.slice(7);
 
-export const wsClientFirst = new WsClient(`${WS_URL}/all`);
-export const wsClientSecond = new WsClient(`${WS_URL}?token=${accessToken}`);
+const wsClientFirst = new WsClient(`${WS_URL}/all`);
+const wsClientSecond = new WsClient(`${WS_URL}?token=${accessToken}`);
 
 export const wsMiddleware: Middleware<object, StoreState> = (storeApi) => {
   wsClientFirst.onMessage = (event: MessageEvent<string>) => {
@@ -32,6 +33,17 @@ export const wsMiddleware: Middleware<object, StoreState> = (storeApi) => {
   };
 
   return (next) => (action: Action) => {
+    wsClientFirst.open();
+
+    if (action.type === login.fulfilled.type || action.type === authenticate.fulfilled.type || accessToken) {
+      wsClientSecond.open();
+    }
+
+    if (action.type === logout.fulfilled.type) {
+      wsClientFirst.close();
+      wsClientSecond.close();
+    }
+
     return next(action);
   };
 };
