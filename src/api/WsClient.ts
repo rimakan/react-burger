@@ -25,7 +25,9 @@ export class WsClient {
   }
 
   public close(): void {
-    this.socket?.close();
+    if (this.socket?.readyState === 1) {
+      this.socket?.close();
+    }
   }
 
   private cleanup(): void {

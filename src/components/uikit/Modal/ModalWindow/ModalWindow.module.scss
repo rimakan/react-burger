@@ -9,13 +9,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  header {
+  .modalHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     svg {
       cursor: pointer;
+    }
+
+    &_withoutHeading {
+      display: block;
+      text-align: end;
     }
   }
 
