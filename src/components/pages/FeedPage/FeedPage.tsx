@@ -6,8 +6,10 @@ import OrdersStats from './OrdersStats/OrdersStats';
 import { useSelector } from '../../../hooks';
 import { Spinner } from '../../uikit';
 import ExtendedOrderDialog from '../../Common/order/ExtendedOrderDialog/ExtendedOrderDialog';
+import { useRequestFeedPage } from './useRequestFeedPage';
 
 const FeedPage: React.FC = () => {
+  useRequestFeedPage();
   const orders = useSelector(({ reactBurger }) => reactBurger.orderFeed.publicOrders);
 
   return (
