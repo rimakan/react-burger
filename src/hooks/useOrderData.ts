@@ -1,16 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSelector } from './useSelector';
-import { useDispatch } from './useDispatch';
-import { getBurgerIngredients } from '../store/reactBurger/ingredientsSlice/ingredientsSlice';
 import { ingredientIconDict } from '../components/Common/IngredientPreviewImg/IngredientPreviewImg.constants';
 
 export const useOrderData = (orderIngredients?: string[]) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
-
   const burgerIngredients = useSelector(({ reactBurger }) => reactBurger.burgerIngredients.ingredients);
   const [restIngredientsLength, setRestIngredientsLength] = useState(0);
 
