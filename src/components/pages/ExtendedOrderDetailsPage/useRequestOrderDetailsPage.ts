@@ -1,27 +1,33 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { wsClientFirst, wsClientSecond } from '../../../store/middlewares/wsMiddleware';
 import { useDispatch, useSelector } from '../../../hooks';
-import { getBurgerIngredients } from '../../../store/reactBurger/ingredientsSlice/ingredientsSlice';
-
-const wsClients = [wsClientFirst, wsClientSecond];
+import { cleanupIngredients, getBurgerIngredients } from '../../../store/reactBurger/ingredientsSlice/ingredientsSlice';
+import { useLocation } from 'react-router-dom';
 
 export const useRequestOrderDetailsPage = () => {
   const dispatch = useDispatch();
   const publicOrders = useSelector((s) => s.reactBurger.orderFeed.publicOrders);
   const personalOrders = useSelector((s) => s.user.relatedData.personalOrders);
+  const { pathname } = useLocation();
+  const subDomain = useMemo(() => pathname.split('/')[1], [pathname]);
 
   useEffect(() => {
-    if (publicOrders?.length === 0 && personalOrders?.length === 0) {
-      dispatch(getBurgerIngredients());
-      wsClients.forEach((client) => {
-        client.open();
-      });
+    dispatch(getBurgerIngredients());
+    if (subDomain === 'feed') {
+      wsClientFirst.open();
+    }
+
+    if (subDomain === 'profile') {
+      wsClientSecond.open();
 
       return () => {
-        wsClients.forEach((client) => {
-          client.close();
-        });
+        wsClientSecond.close();
       };
     }
-  }, [publicOrders, personalOrders, dispatch]);
+
+    return () => {
+      dispatch(cleanupIngredients());
+      wsClientFirst.close();
+    };
+  }, [publicOrders, personalOrders, dispatch, subDomain]);
 };
