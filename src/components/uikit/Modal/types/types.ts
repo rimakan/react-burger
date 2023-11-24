@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface ModalProps extends React.PropsWithChildren {
-  heading?: string;
+  heading?: React.ReactNode;
   className?: string;
   onClick: () => void;
 }

@@ -1,0 +1,15 @@
+.scrollableContainer {
+  overflow-y: auto;
+
+  &_primary {
+    max-height: 800px;
+  }
+
+  &_secondary {
+    max-height: 305px;
+  }
+
+  &_tertiary {
+    max-height: 150px;
+  }
+}

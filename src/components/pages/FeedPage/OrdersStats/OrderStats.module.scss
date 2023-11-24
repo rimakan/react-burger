@@ -1,0 +1,9 @@
+.orderStats {
+  margin-top: 110px;
+
+  &__orderNumbersBox {
+    display: flex;
+    gap: 36px;
+    margin-bottom: 60px;
+  }
+}

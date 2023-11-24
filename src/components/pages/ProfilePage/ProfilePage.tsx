@@ -2,14 +2,14 @@ import React from 'react';
 import ProfileNav from './ProfileNav/ProfileNav';
 import { Outlet } from 'react-router-dom';
 import s from './ProfilePage.module.scss';
-import { useRequestProfilePage } from './useRequestProfilePage';
+import ExtendedOrderDialog from '../../Common/order/ExtendedOrderDialog/ExtendedOrderDialog';
 
 const ProfilePage: React.FC = () => {
-  useRequestProfilePage();
   return (
     <section className={s.profile}>
       <ProfileNav />
       <Outlet />
+      <ExtendedOrderDialog />
     </section>
   );
 };

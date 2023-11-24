@@ -6,7 +6,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '../../../../hooks';
 
 const ProfileForm: React.FC = () => {
-  const isLoading = useSelector((s) => s.user.user);
+  const isLoading = useSelector((s) => s.user.isLoading);
 
   const {
     formData,
@@ -20,7 +20,7 @@ const ProfileForm: React.FC = () => {
     handleCancel,
   } = useProfileForm();
 
-  return !isLoading ? (
+  return isLoading ? (
     <Spinner />
   ) : (
     <div className={s.profileForm}>
@@ -29,27 +29,27 @@ const ProfileForm: React.FC = () => {
         value={formData.name}
         placeholder="Имя"
         onChange={handleNameChange}
-        icon="EditIcon"
         errorText={errors.name}
         error={!!errors.name}
+        icon="EditIcon"
       />
       <InputField
         type="email"
         value={formData.email}
         placeholder="E-mail"
         onChange={handleEmailChange}
-        icon="EditIcon"
         errorText={errors.email}
         error={!!errors.email}
+        icon="EditIcon"
       />
       <InputField
         type="password"
         value={formData.password}
         placeholder="Пароль"
         onChange={handlePasswordChange}
-        icon="EditIcon"
         errorText={errors.password}
         error={!!errors.password}
+        icon="EditIcon"
       />
       {areButtonsShown && (
         <div className={s.profileForm__buttonGroup}>

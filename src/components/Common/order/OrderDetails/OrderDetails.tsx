@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './OrderDetails.module.scss';
-import acceptedIcon from '../../../icons/acceptedIcon.svg';
-import { Spinner } from '../../uikit';
+import acceptedIcon from '../../../../icons/acceptedIcon.svg';
+import { Spinner } from '../../../uikit';
 
 interface OrderDetailsProps {
   orderId?: number;

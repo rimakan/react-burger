@@ -1,7 +1,7 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { Modal } from '../../uikit';
-import OrderDetails from '../../Common/OrderDetails/OrderDetails';
+import OrderDetails from '../../Common/order/OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from '../../../hooks';
 import { cleanupConstructor, createOrder } from '../../../store/reactBurger/constructorSlice/constructorSlice';
 import { useModal } from '../../../hooks';

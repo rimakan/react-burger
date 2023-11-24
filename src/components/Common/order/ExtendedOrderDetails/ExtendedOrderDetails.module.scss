@@ -1,0 +1,79 @@
+.extendedOrderDetails {
+  margin-top: 120px !important;
+  width: 640px;
+  margin: 0 auto;
+
+  &_modal {
+    margin-top: 0 !important;
+    width: 500px;
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    &__subHeader {  
+      h2 {
+        margin-bottom: 12px;
+      }
+    }
+  }
+
+  header {
+    margin-bottom: 40px;
+  }
+
+  &__subHeader {
+    margin-bottom: 60px;
+
+    h2 {
+      margin-bottom: 12px;
+    }
+  }
+
+  &__subHeader,
+  &__ingredients,
+  footer {
+    text-align: start;
+  }
+
+  &__ingredients {
+    margin-bottom: 40px;
+  }
+
+  &__ingredientsItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-right: 16px;
+
+    .previewBox, .priceBox {
+      display: flex;
+      align-items: center;
+    }
+
+    .previewBox {
+      width: 350px;
+      p {
+        word-wrap: break-word;
+      }
+      gap: 16px
+    }
+
+    .priceBox {
+      span {
+        margin: 0 5px;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

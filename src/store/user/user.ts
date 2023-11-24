@@ -3,22 +3,28 @@ import { createAsyncThunk } from '../redux';
 import { fetchWithRefresh } from '../../components/utils/responseUtils';
 import { UserResponse } from '../../models/response';
 import { User } from '../../models/user';
-import { refreshAccessToken } from '../auth/auth';
+import { ExtendedOrder } from '../../models/order';
+import { wsActions } from '../middlewares/wsMiddleware.constants';
 
 interface UserInitialState {
   isLoading: boolean;
   user?: User;
+  relatedData: {
+    personalOrders?: ExtendedOrder[];
+  };
 }
 
 const getUser = createAsyncThunk('reactBurger/user/getUser', async (_, thunkAPI) => {
   const token = localStorage.getItem('accessToken');
   if (token) {
     thunkAPI.dispatch(setIsLoading(true));
-    const response = await fetchWithRefresh<UserResponse>('auth/user', thunkAPI.dispatch(refreshAccessToken()), {
+    const response = await fetchWithRefresh<UserResponse>('auth/user', {
       method: 'GET',
       headers: {
         // prettier-ignore
+        "Content-Type": "application-json",
         "Authorization": token,
+        // prettier-ignore
       },
     });
 
@@ -27,10 +33,10 @@ const getUser = createAsyncThunk('reactBurger/user/getUser', async (_, thunkAPI)
   }
 });
 
-const updateUser = createAsyncThunk('reactBurger/user/updateUser', async (payload: Partial<User>, thunkAPI) => {
+const updateUser = createAsyncThunk('reactBurger/user/updateUser', async (payload: Partial<User>) => {
   const token = localStorage.getItem('accessToken');
   if (token) {
-    const response = await fetchWithRefresh<UserResponse>('auth/user', thunkAPI.dispatch(refreshAccessToken()), {
+    const response = await fetchWithRefresh<UserResponse>('auth/user', {
       method: 'PATCH',
       headers: {
         // prettier-ignore
@@ -46,6 +52,9 @@ const updateUser = createAsyncThunk('reactBurger/user/updateUser', async (payloa
 const createInitialState = (): UserInitialState => ({
   user: undefined,
   isLoading: false,
+  relatedData: {
+    personalOrders: [],
+  },
 });
 
 const userSlice = createSlice({
@@ -71,6 +80,9 @@ const userSlice = createSlice({
     });
     builder.addCase(updateUser.rejected, (state) => {
       state.user = undefined;
+    });
+    builder.addCase(wsActions.getPersonalOrders, (state, action) => {
+      state.relatedData.personalOrders = action.payload?.orders;
     });
   },
 });

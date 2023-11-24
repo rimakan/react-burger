@@ -1,10 +1,14 @@
+/* eslint-disable spellcheck/spell-checker */
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import burgerIngredientsSlice from './reactBurger/ingredientsSlice/ingredientsSlice';
 import burgerIngredientsActionsSlice from './reactBurger/ingredientsSlice/ingredientsSliceActions';
 import burgerConstructorSlice from './reactBurger/constructorSlice/constructorSlice';
 import authSlice from './auth/auth';
 import userSlice from './user/user';
-import { apiMiddleware } from './apiMiddleware';
+import orderFeedSlice from './reactBurger/orderFeedSlice/orderFeedSlice';
+import { apiMiddleware } from './middlewares/apiMiddleware';
+import { wsMiddleware } from './middlewares/wsMiddleware';
+import orderFeedActionsSlice from './reactBurger/orderFeedSlice/orderFeedActionsSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice,
@@ -13,12 +17,14 @@ const rootReducer = combineReducers({
     burgerIngredients: burgerIngredientsSlice,
     burgerIngredientsActions: burgerIngredientsActionsSlice,
     burgerConstructor: burgerConstructorSlice,
+    orderFeed: orderFeedSlice,
+    orderFeedActions: orderFeedActionsSlice,
   }),
 });
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiMiddleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiMiddleware, wsMiddleware),
 });
 
 export type StoreState = ReturnType<typeof rootReducer>;
