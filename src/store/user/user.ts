@@ -88,5 +88,5 @@ const userSlice = createSlice({
 });
 
 const { cleanupUser, setIsLoading } = userSlice.actions;
-export { getUser, updateUser, cleanupUser };
+export { getUser, updateUser, cleanupUser, setIsLoading };
 export default userSlice.reducer;

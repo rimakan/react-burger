@@ -98,8 +98,8 @@ const resetPassword = createAsyncThunk(
 );
 
 const createInitialState = (): AuthSliceInitialState => ({
-  accessToken: localStorage.getItem('accessToken') || '',
-  refreshToken: localStorage.getItem('refreshToken') || '',
+  accessToken: '',
+  refreshToken: '',
 });
 
 const authSlice = createSlice({

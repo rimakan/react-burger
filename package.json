@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.53",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
@@ -30,7 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
     "prepare": "husky install"
@@ -54,10 +53,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/jest": "^29.5.10",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-spellcheck": "^0.0.20",
     "husky": "^8.0.0",
+    "jest": "^27.5.1",
     "typescript-plugin-css-modules": "^5.0.1"
   }
 }
