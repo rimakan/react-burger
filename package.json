@@ -53,8 +53,10 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.5",
     "@babel/preset-typescript": "^7.23.3",
     "@types/jest": "^29.5.10",
+    "cypress": "^13.6.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-spellcheck": "^0.0.20",

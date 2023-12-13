@@ -7,10 +7,11 @@ import { cleanupConstructor, createOrder } from '../../../store/reactBurger/cons
 import { useModal } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 
+const accessToken = Boolean(localStorage.getItem('accessToken'));
+
 const BurgerConstructorButton: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((s) => s.user.user);
 
   const {
     burgerConstructorIngredients,
@@ -20,7 +21,7 @@ const BurgerConstructorButton: React.FC = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const handleClickOpenModal = () => {
-    if (user) {
+    if (accessToken) {
       dispatch(createOrder(burgerConstructorIngredients));
       openModal();
     } else {
@@ -40,6 +41,7 @@ const BurgerConstructorButton: React.FC = () => {
         htmlType="button"
         onClick={handleClickOpenModal}
         disabled={!isBunPresent && !!burgerConstructorIngredients}
+        data-testid="submit"
       >
         Оформить заказ
       </Button>

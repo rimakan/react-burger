@@ -42,7 +42,7 @@ const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = forwardRef((
       <div className={s.list}>
         {ingredients
           .filter((ingredient) => ingredient.type === type)
-          .map((ingredient) => {
+          .map((ingredient, index) => {
             return (
               <IngredientCard
                 key={`${ingredient._id}`}
@@ -52,6 +52,7 @@ const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = forwardRef((
                 itemPrice={ingredient.price}
                 ingredient={ingredient}
                 onClick={() => handleClick(ingredient._id)}
+                testId={`${ingredient.type}_${index}`}
               />
             );
           })}

@@ -16,7 +16,7 @@
     "spellcheck/spell-checker": [
       "warn",
       {
-        "skipWords": ["acc", "coord", "cn", "dnd", "dom", "keydown", "matchers", "mb", "norma", "nomoreparties", "onopen", "Perf", "pb", "pathname", "redux", "rect", "scrollable", "ws", "wss"]
+        "skipWords": ["acc", "coord", "cn", "cy", "dnd", "dom", "keydown", "matchers", "mb", "norma", "nomoreparties", "onopen", "Perf", "pb", "pathname", "redux", "rect", "scrollable", "testid", "ws", "wss"]
       }
     ],
     "no-console": [

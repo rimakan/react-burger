@@ -15,7 +15,9 @@ const IngredientDetails: React.FC<IngredientDetailsProps> = ({ product, extraCla
   return (
     <div className={ingredientClassNames}>
       <img src={product.image_large} alt={product.name} />
-      <h2 className="text text_type_main-medium">{product.name}</h2>
+      <h2 className="text text_type_main-medium" data-testid="productName">
+        {product.name}
+      </h2>
       <div className={s.ingredientDetails__description}>
         <NutrientItem nutrientTitle="Калории, ккал" nutrientQty={product.calories} className={className} />
         <NutrientItem nutrientTitle="Белки, г" nutrientQty={product.proteins} className={className} />

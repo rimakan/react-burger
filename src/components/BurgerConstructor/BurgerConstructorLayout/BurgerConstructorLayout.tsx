@@ -55,15 +55,20 @@ const BurgerConstructorLayout: React.FC = () => {
   );
 
   return (
-    <section className={`${s.burgerConstructorLayout}`}>
+    <section className={`${s.burgerConstructorLayout}`} data-testid="burgerConstructor">
       <>
         {getBurgerBun(burgerBun, 'верх', 'top')}
-        <div className={`${s.mainProductsList} custom-scroll`} ref={drop}>
+        <div className={`${s.mainProductsList} custom-scroll`} ref={drop} data-testid="constructorItem">
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => {
+            filteredProducts.map((product, index) => {
               const { dragId } = product;
               return (
-                <BurgerConstructorItem key={dragId} product={product} onClick={() => handleClickIngredient(dragId)} />
+                <BurgerConstructorItem
+                  key={dragId}
+                  product={product}
+                  onClick={() => handleClickIngredient(dragId)}
+                  testId={`${product.type}_${index}`}
+                />
               );
             })
           ) : (
