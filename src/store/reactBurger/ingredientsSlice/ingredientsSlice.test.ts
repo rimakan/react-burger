@@ -1,8 +1,8 @@
-import ingredientsSlice, { cleanupIngredients } from './ingredientsSlice';
+import ingredientsSlice, { cleanupIngredients, createInitialState } from './ingredientsSlice';
 import { ingredients } from '../../../tests/testData';
 
 describe('ingredientsSlice', () => {
-  const ingredientsSliceInitialState = { ingredients: [] };
+  const ingredientsSliceInitialState = createInitialState();
 
   it('should handle initial state', () => {
     const action = { type: 'unknown' };

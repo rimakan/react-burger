@@ -1,11 +1,7 @@
-import orderFeedSlice from './orderFeedSlice';
+import orderFeedSlice, { createInitialState } from './orderFeedSlice';
 
 describe('orderFeedActionsSlice', () => {
-  const orderFeedSliceInitialState = {
-    publicOrders: [],
-    todayOrdersCount: 0,
-    totalOrdersCount: 0,
-  };
+  const orderFeedSliceInitialState = createInitialState();
 
   it('should handle the initial state', () => {
     const action = { type: 'unknown' };

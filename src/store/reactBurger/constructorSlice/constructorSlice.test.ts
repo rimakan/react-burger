@@ -3,20 +3,13 @@ import constructorSlice, {
   getOrderPrice,
   removeIngredientFromConstructor,
   sortIngredients,
+  createInitialState,
 } from './constructorSlice';
 import { ingredients } from '../../../tests/testData';
 import { ProductType } from '../../../models/product';
 
-describe('ingredientsSlice', () => {
-  const constructorSliceInitialState = {
-    burgerConstructorIngredients: [],
-    isBunPresent: false,
-    orderPrice: 0,
-    relatedData: {
-      order: undefined,
-      replacedProduct: null,
-    },
-  };
+describe('constructorSlice', () => {
+  const constructorSliceInitialState = createInitialState();
 
   const [bun] = ingredients;
 

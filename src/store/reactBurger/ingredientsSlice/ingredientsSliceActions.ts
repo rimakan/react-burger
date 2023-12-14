@@ -4,7 +4,7 @@ interface ingredientsActionsSliceState {
   ingredientId: string | null;
 }
 
-const createInitialState = (): ingredientsActionsSliceState => ({
+export const createInitialState = (): ingredientsActionsSliceState => ({
   ingredientId: null,
 });
 

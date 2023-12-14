@@ -6,7 +6,7 @@ interface OrderFeedActionsSliceInitialState {
   order?: ExtendedOrder;
 }
 
-const createInitialState = (): OrderFeedActionsSliceInitialState => ({
+export const createInitialState = (): OrderFeedActionsSliceInitialState => ({
   order: undefined,
 });
 

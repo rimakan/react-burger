@@ -1,15 +1,12 @@
-import auth from './auth';
+import auth, { createInitialState } from './auth';
 
 describe('authSlice', () => {
-  const initialState = {
-    accessToken: '',
-    refreshToken: '',
-  };
+  const authSliceInitialState = createInitialState();
 
   it('should handle the initial state', () => {
     const action = { type: 'unknown' };
-    const expectedState = initialState;
+    const expectedState = authSliceInitialState;
 
-    expect(auth(initialState, action)).toEqual(expectedState);
+    expect(auth(authSliceInitialState, action)).toEqual(expectedState);
   });
 });

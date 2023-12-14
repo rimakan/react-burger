@@ -8,7 +8,7 @@ interface OrderFeedSliceInitialState {
   totalOrdersCount: number;
 }
 
-const createInitialState = (): OrderFeedSliceInitialState => ({
+export const createInitialState = (): OrderFeedSliceInitialState => ({
   publicOrders: [],
   todayOrdersCount: 0,
   totalOrdersCount: 0,

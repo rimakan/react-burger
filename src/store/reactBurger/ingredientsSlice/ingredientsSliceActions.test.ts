@@ -1,8 +1,12 @@
-import ingredientsSliceActions, { closeIngredientDialog, openIngredientDialog } from './ingredientsSliceActions';
+import ingredientsSliceActions, {
+  closeIngredientDialog,
+  openIngredientDialog,
+  createInitialState,
+} from './ingredientsSliceActions';
 import { ingredients } from '../../../tests/testData';
 
 describe('ingredientsSlice', () => {
-  const ingredientsActionsSliceInitialState = { ingredientId: null };
+  const ingredientsActionsSliceInitialState = createInitialState();
 
   const ingredientId = ingredients[0]._id;
 

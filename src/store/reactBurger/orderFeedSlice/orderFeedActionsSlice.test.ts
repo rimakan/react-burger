@@ -1,11 +1,9 @@
 import { OrderState } from '../../../models/order';
 import { ExtendedOrder } from '../../../models/order';
-import orderFeedActionsSlice, { closeOrderDialog, openOrderDialog } from './orderFeedActionsSlice';
+import orderFeedActionsSlice, { closeOrderDialog, openOrderDialog, createInitialState } from './orderFeedActionsSlice';
 
 describe('orderFeedActionsSlice', () => {
-  const orderFeedActionsSliceInitialState = {
-    order: undefined,
-  };
+  const orderFeedActionsSliceInitialState = createInitialState();
 
   const order: ExtendedOrder = {
     _id: '1',

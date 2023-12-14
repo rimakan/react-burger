@@ -1,13 +1,7 @@
-import user, { cleanupUser, setIsLoading } from './user';
+import user, { cleanupUser, setIsLoading, createInitialState } from './user';
 
 describe('userSlice', () => {
-  const userSliceInitialState = {
-    user: undefined,
-    isLoading: false,
-    relatedData: {
-      personalOrders: [],
-    },
-  };
+  const userSliceInitialState = createInitialState();
 
   const testUser = {
     name: 'John Doe',

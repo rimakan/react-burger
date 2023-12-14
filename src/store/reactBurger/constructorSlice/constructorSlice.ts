@@ -35,7 +35,7 @@ const createOrder = createAsyncThunk('reactBurger/burgerConstructor/createOrder'
   }
 });
 
-const createInitialState = (): ConstructorSliceInitialState => ({
+export const createInitialState = (): ConstructorSliceInitialState => ({
   burgerConstructorIngredients: [],
   isBunPresent: false,
   orderPrice: 0,
