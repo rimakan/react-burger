@@ -11,6 +11,7 @@ interface IngredientCardProps {
   itemPrice: number;
   ingredient: Product;
   onClick: () => void;
+  testId: string;
 }
 
 const IngredientCard: React.FC<IngredientCardProps> = ({
@@ -20,6 +21,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
   itemTitle,
   ingredient,
   onClick,
+  testId,
 }) => {
   const [, drag] = useDrag(
     () => ({
@@ -34,7 +36,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
 
   const className = 'text text_type_main-default';
   return (
-    <div className={`${s.ingredientCard} pb-8`} onClick={onClick} ref={drag}>
+    <div className={`${s.ingredientCard} pb-8`} onClick={onClick} ref={drag} data-testid={testId}>
       {count > 0 && <Counter count={count} size="default" />}
       <img src={itemImage} alt={itemTitle} />
       <div>

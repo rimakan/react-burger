@@ -12,7 +12,7 @@ interface BurgerIngredientsSliceInitialState {
   ingredients: Product[];
 }
 
-const createInitialState = (): BurgerIngredientsSliceInitialState => ({
+export const createInitialState = (): BurgerIngredientsSliceInitialState => ({
   ingredients: [],
 });
 

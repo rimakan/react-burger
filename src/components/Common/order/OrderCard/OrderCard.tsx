@@ -8,7 +8,6 @@ import { ingredientIconDict } from '../../IngredientPreviewImg/IngredientPreview
 import { useOrderData } from '../../../../hooks';
 import OrderTitle from '../OrderTitle/OrderTitle';
 import OrderStatus from '../OrderStatus/OrderStatus';
-import { v4 as uuid } from 'uuid';
 
 interface OrderCardProps {
   variant?: 'primary' | 'secondary';
@@ -55,11 +54,11 @@ const OrderCard: React.FC<OrderCardProps> = ({
 
       <div className={s.orderCard__details}>
         <div className={s.orderCard__ingredients}>
-          {newIngredients?.map((ingredient) => (
+          {newIngredients?.map((ingredient, index) => (
             <IngredientPreviewImg
               src={ingredientIconDict[ingredient]}
               alt="ingredient"
-              key={uuid()}
+              key={index}
               isLastItem={ingredient === newIngredients.at(-1) && restIngredientsLength > 0}
             />
           ))}

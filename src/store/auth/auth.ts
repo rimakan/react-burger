@@ -97,7 +97,7 @@ const resetPassword = createAsyncThunk(
   },
 );
 
-const createInitialState = (): AuthSliceInitialState => ({
+export const createInitialState = (): AuthSliceInitialState => ({
   accessToken: localStorage.getItem('accessToken') || '',
   refreshToken: localStorage.getItem('refreshToken') || '',
 });

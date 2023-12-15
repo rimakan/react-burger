@@ -49,7 +49,7 @@ const updateUser = createAsyncThunk('reactBurger/user/updateUser', async (payloa
   }
 });
 
-const createInitialState = (): UserInitialState => ({
+export const createInitialState = (): UserInitialState => ({
   user: undefined,
   isLoading: false,
   relatedData: {
@@ -88,5 +88,5 @@ const userSlice = createSlice({
 });
 
 const { cleanupUser, setIsLoading } = userSlice.actions;
-export { getUser, updateUser, cleanupUser };
+export { getUser, updateUser, cleanupUser, setIsLoading };
 export default userSlice.reducer;

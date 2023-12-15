@@ -1,0 +1,4 @@
+{
+ "success": true,
+ "user": { "name": "woof", "email": "test@example.com" }
+}

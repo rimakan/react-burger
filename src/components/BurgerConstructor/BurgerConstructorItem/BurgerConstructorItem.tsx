@@ -9,9 +9,10 @@ import { useDispatch, useSelector } from '../../../hooks';
 interface BurgerConstructorItemProps {
   product: Product;
   onClick: () => void;
+  testId: string;
 }
 
-const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({ product, onClick }) => {
+const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({ product, onClick, testId }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const burgerIngredientsList = useSelector(
@@ -76,7 +77,7 @@ const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({ product, 
   drag(drop(ref));
 
   return (
-    <div className={s.burgerConstructorItem} ref={ref}>
+    <div className={s.burgerConstructorItem} ref={ref} data-testid={testId}>
       <span ref={dropDragIcon}>
         <DragIcon type="primary" />
       </span>
